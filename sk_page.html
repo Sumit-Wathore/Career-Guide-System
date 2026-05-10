@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Assessment & Engineering Resources - Career Guide</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #dc2626;
+            --success-color: #059669;
+            --warning-color: #d97706;
+            --info-color: #0891b2;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --text-color: #334155;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --premium-gold: #f59e0b;
+            --premium-gradient: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: var(--dark-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Main Layout */
+        .skills-assessment {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            min-height: 80vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+
+        .nav-section h3 {
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .nav-item:hover {
+            background: var(--light-color);
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .nav-item.premium {
+            background: var(--premium-gradient);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item.premium::after {
+            content: 'PREMIUM';
+            position: absolute;
+            top: -5px;
+            right: -25px;
+            background: var(--accent-color);
+            color: white;
+            padding: 2px 25px;
+            font-size: 0.7rem;
+            transform: rotate(45deg);
+        }
+
+        /* Main Content */
+        .content-area {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            min-height: 600px;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Skills Assessment */
+        .assessment-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .skill-category {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--light-color);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .skill-info {
+            flex: 1;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .skill-description {
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .skill-rating {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .rating-btn {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .rating-btn:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .rating-btn.selected {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Results Section */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .skill-level {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .level-beginner { background: #fef3c7; color: #92400e; }
+        .level-intermediate { background: #dbeafe; color: #1e40af; }
+        .level-advanced { background: #d1fae5; color: #065f46; }
+        .level-expert { background: #fce7f3; color: #9d174d; }
+
+        /* Books Section */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid var(--border-color);
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .book-card.premium {
+            border-color: var(--premium-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-card.premium::before {
+            content: 'PREMIUM';
+            position: absolute;
+            top: 10px;
+            right: -25px;
+            background: var(--premium-gold);
+            color: white;
+            padding: 2px 25px;
+            font-size: 0.7rem;
+            transform: rotate(45deg);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 180px;
+            background: var(--light-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 3rem;
+        }
+
+        .book-title {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .book-author {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .book-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .skill-tag {
+            background: var(--light-color);
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Gap Analysis */
+        .gap-analysis {
+            background: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .gap-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: white;
+            border-radius: 8px;
+        }
+
+        /* Buttons */
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-premium {
+            background: var(--premium-gradient);
+            color: white;
+        }
+
+        .btn-premium:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            background: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success-color);
+            transition: width 0.3s ease;
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            border: 2px solid var(--premium-gold);
+        }
+
+        .premium-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-card {
+            background: var(--light-color);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .skills-assessment {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+            
+            .books-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .skill-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .skill-rating {
+                align-self: flex-end;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Skills Assessment & Engineering Resources</h1>
+            <p>Evaluate your skills, identify gaps, and access premium engineering books</p>
+        </header>
+
+        <div class="skills-assessment">
+            <!-- Sidebar Navigation -->
+            <div class="sidebar">
+                <div class="nav-section">
+                    <h3>🔧 Assessment</h3>
+                    <div class="nav-item active" data-section="skills-assessment">
+                        🎯 Skills Assessment
+                    </div>
+                    <div class="nav-item" data-section="results">
+                        📊 Assessment Results
+                    </div>
+                    <div class="nav-item" data-section="gap-analysis">
+                        📈 Skill Gap Analysis
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <h3>📚 Learning Resources</h3>
+                    <div class="nav-item" data-section="programming-books">
+                        💻 Programming Books
+                    </div>
+                    <div class="nav-item premium" data-section="software-engineering">
+                        🏗️ Software Engineering
+                    </div>
+                    <div class="nav-item premium" data-section="system-design">
+                        🏛️ System Design
+                    </div>
+                    <div class="nav-item premium" data-section="ai-ml-books">
+                        🤖 AI & Machine Learning
+                    </div>
+                    <div class="nav-item premium" data-section="devops-books">
+                        ⚙️ DevOps & Cloud
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <h3>📊 Progress</h3>
+                    <div class="progress-section">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Assessment Progress</span>
+                            <span id="progressPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                        <p style="text-align: center; margin-top: 0.5rem; font-size: 0.9rem;">
+                            <span id="skillsAssessed">0</span> of 45 skills assessed
+                        </p>
+                    </div>
+                </div>
+
+                <button class="btn btn-premium btn-block" onclick="showPaymentSection()">
+                    🔓 Unlock Premium Books - ₹299
+                </button>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="content-area">
+                <!-- Skills Assessment Section -->
+                <div id="skills-assessment" class="content-section active">
+                    <h2>🎯 Technical Skills Assessment</h2>
+                    <p>Rate your proficiency level for each skill (1=Beginner, 5=Expert)</p>
+                    
+                    <div class="assessment-container">
+                        <!-- Programming Languages -->
+                        <div class="skill-category">
+                            <h3>💻 Programming Languages</h3>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <div class="skill-name">Python</div>
+                                    <div class="skill-description">Object-oriented programming, data structures, algorithms</div>
+                                </div>
+                                <div class="skill-rating" data-skill="python">
+                                    <div class="rating-btn" data-value="1">1</div>
+                                    <div class="rating-btn" data-value="2">2</div>
+                                    <div class="rating-btn" data-value="3">3</div>
+                                    <div class="rating-btn" data-value="4">4</div>
+                                    <div class="rating-btn" data-value="5">5</div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <div class="skill-name">JavaScript</div>
+                                    <div class="skill-description">ES6+, DOM manipulation, async programming</div>
+                                </div>
+                                <div class="skill-rating" data-skill="javascript">
+                                    <div class="rating-btn" data-value="1">1</div>
+                                    <div class="rating-btn" data-value="2">2</div>
+                                    <div class="rating-btn" data-value="3">3</div>
+                                    <div class="rating-btn" data-value="4">4</div>
+                                    <div class="rating-btn" data-value="5">5</div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <div class="skill-name">Java</div>
+                                    <div class="skill-description">JVM, multithreading, Spring framework</div>
+                                </div>
+                                <div class="skill-rating" data-skill="java">
+                                    <div class="rating-btn" data-value="1">1</div>
+                                    <div class="rating-btn" data-value="2">2</div>
+                                    <div class="rating-btn" data-value="3">3</div>
+                                    <div class="rating-btn" data-value="4">4</div>
+                                    <div class="rating-btn" data-value="5">5</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Web Development -->
+                        <div class="skill-category">
+                            <h3>🌐 Web Development</h3>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <div class="skill-name">React.js</div>
+                                    <div class="skill-description">Components, hooks, state management</div>
+                                </div>
+                                <div class="skill-rating" data-skill="react">
+                                    <div class="rating-btn" data-value="1">1</div>
+                                    <div class="rating-btn" data-value="2">2</div>
+                                    <div class="rating-btn" data-value="3">3</div>
+                                    <div class="rating-btn" data-value="4">4</div>
+                                    <div class="rating-btn" data-value="5">5</div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <div class="skill-name">Node.js</div>
+                                    <div class="skill-description">Backend development, Express.js, APIs</div>
+                                </div>
+                                <div class="skill-rating" data-skill="nodejs">
+                                    <div class="rating-btn" data-value="1">1</div>
+                                    <div class="rating-btn" data-value="2">2</div>
+                                    <div class="rating-btn" data-value="3">3</div>
+                                    <div class="rating-btn" data-value="4">4</div>
+                                    <div class="rating-btn" data-value="5">5</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Databases -->
+                        <div class="skill-category">
+                            <h3>🗄️ Databases</h3>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <div class="skill-name">SQL</div>
+                                    <div class="skill-description">Query optimization, transactions, normalization</div>
+                                </div>
+                                <div class="skill-rating" data-skill="sql">
+                                    <div class="rating-btn" data-value="1">1</div>
+                                    <div class="rating-btn" data-value="2">2</div>
+                                    <div class="rating-btn" data-value="3">3</div>
+                                    <div class="rating-btn" data-value="4">4</div>
+                                    <div class="rating-btn" data-value="5">5</div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <div class="skill-name">MongoDB</div>
+                                    <div class="skill-description">NoSQL, aggregation, indexing</div>
+                                </div>
+                                <div class="skill-rating" data-skill="mongodb">
+                                    <div class="rating-btn" data-value="1">1</div>
+                                    <div class="rating-btn" data-value="2">2</div>
+                                    <div class="rating-btn" data-value="3">3</div>
+                                    <div class="rating-btn" data-value="4">4</div>
+                                    <div class="rating-btn" data-value="5">5</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DevOps & Cloud -->
+                        <div class="skill-category">
+                            <h3>⚙️ DevOps & Cloud</h3>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <div class="skill-name">Docker</div>
+                                    <div class="skill-description">Containerization, Docker Compose, orchestration</div>
+                                </div>
+                                <div class="skill-rating" data-skill="docker">
+                                    <div class="rating-btn" data-value="1">1</div>
+                                    <div class="rating-btn" data-value="2">2</div>
+                                    <div class="rating-btn" data-value="3">3</div>
+                                    <div class="rating-btn" data-value="4">4</div>
+                                    <div class="rating-btn" data-value="5">5</div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <div class="skill-name">AWS</div>
+                                    <div class="skill-description">EC2, S3, Lambda, cloud architecture</div>
+                                </div>
+                                <div class="skill-rating" data-skill="aws">
+                                    <div class="rating-btn" data-value="1">1</div>
+                                    <div class="rating-btn" data-value="2">2</div>
+                                    <div class="rating-btn" data-value="3">3</div>
+                                    <div class="rating-btn" data-value="4">4</div>
+                                    <div class="rating-btn" data-value="5">5</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-success btn-block" onclick="calculateResults()">
+                            Generate Skills Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Assessment Results -->
+                <div id="results" class="content-section">
+                    <h2>📊 Skills Assessment Results</h2>
+                    <p>Your current skill levels and recommended learning path</p>
+                    
+                    <div class="results-grid" id="resultsContainer">
+                        <!-- Results will be generated here -->
+                    </div>
+
+                    <div class="progress-section">
+                        <h3>Overall Technical Proficiency</h3>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Skill Level</span>
+                            <span id="overallScore">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="overallProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-premium" onclick="showSection('programming-books')">
+                        📚 Get Recommended Books
+                    </button>
+                </div>
+
+                <!-- Programming Books Section -->
+                <div id="programming-books" class="content-section">
+                    <h2>💻 Programming Books</h2>
+                    <p>Essential books to master programming fundamentals</p>
+                    
+                    <div class="books-grid">
+                        <div class="book-card">
+                            <div class="book-cover">📘</div>
+                            <div class="book-title">Clean Code: A Handbook of Agile Software Craftsmanship</div>
+                            <div class="book-author">Robert C. Martin</div>
+                            <div class="book-skills">
+                                <span class="skill-tag">Software Design</span>
+                                <span class="skill-tag">Best Practices</span>
+                                <span class="skill-tag">Code Quality</span>
+                            </div>
+                            <button class="btn btn-outline btn-block">View Details</button>
+                        </div>
+
+                        <div class="book-card">
+                            <div class="book-cover">📗</div>
+                            <div class="book-title">The Pragmatic Programmer: Your Journey to Mastery</div>
+                            <div class="book-author">David Thomas, Andrew Hunt</div>
+                            <div class="book-skills">
+                                <span class="skill-tag">Career Development</span>
+                                <span class="skill-tag">Best Practices</span>
+                                <span class="skill-tag">Productivity</span>
+                            </div>
+                            <button class="btn btn-outline btn-block">View Details</button>
+                        </div>
+
+                        <div class="book-card premium">
+                            <div class="book-cover">📙</div>
+                            <div class="book-title">Design Patterns: Elements of Reusable Object-Oriented Software</div>
+                            <div class="book-author">Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides</div>
+                            <div class="book-skills">
+                                <span class="skill-tag">Design Patterns</span>
+                                <span class="skill-tag">OOP</span>
+                                <span class="skill-tag">Software Architecture</span>
+                            </div>
+                            <button class="btn btn-premium btn-block" onclick="showPaymentSection()">Unlock Premium</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Software Engineering Books (Premium) -->
+                <div id="software-engineering" class="content-section">
+                    <div class="payment-section">
+                        <h3>🔒 Premium Software Engineering Books</h3>
+                        <p>Unlock premium to access advanced software engineering resources</p>
+                        
+                        <div class="books-grid">
+                            <div class="book-card premium">
+                                <div class="book-cover">🏗️</div>
+                                <div class="book-title">Code Complete: A Practical Handbook of Software Construction</div>
+                                <div class="book-author">Steve McConnell</div>
+                                <div class="book-skills">
+                                    <span class="skill-tag">Software Construction</span>
+                                    <span class="skill-tag">Best Practices</span>
+                                    <span class="skill-tag">Development</span>
+                                </div>
+                                <button class="btn btn-premium btn-block" onclick="showPaymentSection()">Unlock Premium</button>
+                            </div>
+
+                            <div class="book-card premium">
+                                <div class="book-cover">⚡</div>
+                                <div class="book-title">Refactoring: Improving the Design of Existing Code</div>
+                                <div class="book-author">Martin Fowler</div>
+                                <div class="book-skills">
+                                    <span class="skill-tag">Refactoring</span>
+                                    <span class="skill-tag">Code Quality</span>
+                                    <span class="skill-tag">Maintenance</span>
+                                </div>
+                                <button class="btn btn-premium btn-block" onclick="showPaymentSection()">Unlock Premium</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Design Books (Premium) -->
+                <div id="system-design" class="content-section">
+                    <div class="payment-section">
+                        <h3>🔒 Premium System Design Books</h3>
+                        <p>Unlock premium to access system design and architecture resources</p>
+                        
+                        <div class="books-grid">
+                            <div class="book-card premium">
+                                <div class="book-cover">🏛️</div>
+                                <div class="book-title">Designing Data-Intensive Applications</div>
+                                <div class="book-author">Martin Kleppmann</div>
+                                <div class="book-skills">
+                                    <span class="skill-tag">Data Systems</span>
+                                    <span class="skill-tag">Scalability</span>
+                                    <span class="skill-tag">Architecture</span>
+                                </div>
+                                <button class="btn btn-premium btn-block" onclick="showPaymentSection()">Unlock Premium</button>
+                            </div>
+
+                            <div class="book-card premium">
+                                <div class="book-cover">🌐</div>
+                                <div class="book-title">System Design Interview</div>
+                                <div class="book-author">Alex Xu</div>
+                                <div class="book-skills">
+                                    <span class="skill-tag">Interview Prep</span>
+                                    <span class="skill-tag">System Design</span>
+                                    <span class="skill-tag">Scalability</span>
+                                </div>
+                                <button class="btn btn-premium btn-block" onclick="showPaymentSection()">Unlock Premium</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI & ML Books (Premium) -->
+                <div id="ai-ml-books" class="content-section">
+                    <div class="payment-section">
+                        <h3>🔒 Premium AI & Machine Learning Books</h3>
+                        <p>Unlock premium to access AI and machine learning resources</p>
+                        
+                        <div class="books-grid">
+                            <div class="book-card premium">
+                                <div class="book-cover">🧠</div>
+                                <div class="book-title">Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow</div>
+                                <div class="book-author">Aurélien Géron</div>
+                                <div class="book-skills">
+                                    <span class="skill-tag">Machine Learning</span>
+                                    <span class="skill-tag">TensorFlow</span>
+                                    <span class="skill-tag">Deep Learning</span>
+                                </div>
+                                <button class="btn btn-premium btn-block" onclick="showPaymentSection()">Unlock Premium</button>
+                            </div>
+
+                            <div class="book-card premium">
+                                <div class="book-cover">📊</div>
+                                <div class="book-title">Pattern Recognition and Machine Learning</div>
+                                <div class="book-author">Christopher Bishop</div>
+                                <div class="book-skills">
+                                    <span class="skill-tag">Pattern Recognition</span>
+                                    <span class="skill-tag">ML Theory</span>
+                                    <span class="skill-tag">Algorithms</span>
+                                </div>
+                                <button class="btn btn-premium btn-block" onclick="showPaymentSection()">Unlock Premium</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DevOps Books (Premium) -->
+                <div id="devops-books" class="content-section">
+                    <div class="payment-section">
+                        <h3>🔒 Premium DevOps & Cloud Books</h3>
+                        <p>Unlock premium to access DevOps and cloud computing resources</p>
+                        
+                        <div class="books-grid">
+                            <div class="book-card premium">
+                                <div class="book-cover">⚙️</div>
+                                <div class="book-title">The Phoenix Project: A Novel About IT, DevOps, and Helping Your Business Win</div>
+                                <div class="book-author">Gene Kim, Kevin Behr, George Spafford</div>
+                                <div class="book-skills">
+                                    <span class="skill-tag">DevOps</span>
+                                    <span class="skill-tag">IT Management</span>
+                                    <span class="skill-tag">Business</span>
+                                </div>
+                                <button class="btn btn-premium btn-block" onclick="showPaymentSection()">Unlock Premium</button>
+                            </div>
+
+                            <div class="book-card premium">
+                                <div class="book-cover">☁️</div>
+                                <div class="book-title">Site Reliability Engineering: How Google Runs Production Systems</div>
+                                <div class="book-author">Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy</div>
+                                <div class="book-skills">
+                                    <span class="skill-tag">SRE</span>
+                                    <span class="skill-tag">Reliability</span>
+                                    <span class="skill-tag">Operations</span>
+                                </div>
+                                <button class="btn btn-premium btn-block" onclick="showPaymentSection()">Unlock Premium</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Section -->
+                <div id="payment" class="content-section">
+                    <h2>🔓 Unlock Premium Engineering Books</h2>
+                    <p>Get access to 50+ premium engineering books and resources</p>
+                    
+                    <div class="premium-features">
+                        <div class="feature-card">
+                            <h3>📚 50+ Books</h3>
+                            <p>Complete engineering library</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>🎯 Skill Matching</h3>
+                            <p>Books matched to your skill gaps</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>📊 Progress Tracking</h3>
+                            <p>Track your learning journey</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>🤖 AI Recommendations</h3>
+                            <p>Personalized book suggestions</p>
+                        </div>
+                    </div>
+
+                    <div class="payment-options">
+                        <button class="btn btn-premium btn-block" style="padding: 1.5rem; font-size: 1.2rem; margin: 1rem 0;">
+                            Unlock All Premium Books - ₹299/month
+                        </button>
+                    </div>
+
+                    <div class="premium-books-preview">
+                        <h3>Premium Books You'll Unlock:</h3>
+                        <div style="columns: 2; margin: 1rem 0;">
+                            <div>• Clean Code - Robert C. Martin</div>
+                            <div>• The Pragmatic Programmer - David Thomas</div>
+                            <div>• Design Patterns - Gang of Four</div>
+                            <div>• Code Complete - Steve McConnell</div>
+                            <div>• Refactoring - Martin Fowler</div>
+                            <div>• Designing Data-Intensive Applications - Martin Kleppmann</div>
+                            <div>• System Design Interview - Alex Xu</div>
+                            <div>• Hands-On Machine Learning - Aurélien Géron</div>
+                            <div>• Pattern Recognition and Machine Learning - Christopher Bishop</div>
+                            <div>• The Phoenix Project - Gene Kim</div>
+                            <div>• Site Reliability Engineering - Google</div>
+                            <div>• Introduction to Algorithms - CLRS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Skills Assessment Data
+        const assessmentData = {
+            userSkills: {},
+            totalSkills: 45,
+            assessedSkills: 0,
+            premium: false
+        };
+
+        // Engineering Books Database
+        const engineeringBooks = {
+            programming: [
+                {
+                    title: "Clean Code: A Handbook of Agile Software Craftsmanship",
+                    author: "Robert C. Martin",
+                    skills: ["Software Design", "Best Practices", "Code Quality"],
+                    premium: false
+                },
+                {
+                    title: "The Pragmatic Programmer: Your Journey to Mastery",
+                    author: "David Thomas, Andrew Hunt",
+                    skills: ["Career Development", "Best Practices", "Productivity"],
+                    premium: false
+                },
+                {
+                    title: "Design Patterns: Elements of Reusable Object-Oriented Software",
+                    author: "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides",
+                    skills: ["Design Patterns", "OOP", "Software Architecture"],
+                    premium: true
+                }
+            ],
+            softwareEngineering: [
+                {
+                    title: "Code Complete: A Practical Handbook of Software Construction",
+                    author: "Steve McConnell",
+                    skills: ["Software Construction", "Best Practices", "Development"],
+                    premium: true
+                },
+                {
+                    title: "Refactoring: Improving the Design of Existing Code",
+                    author: "Martin Fowler",
+                    skills: ["Refactoring", "Code Quality", "Maintenance"],
+                    premium: true
+                },
+                {
+                    title: "Working Effectively with Legacy Code",
+                    author: "Michael Feathers",
+                    skills: ["Legacy Code", "Refactoring", "Testing"],
+                    premium: true
+                }
+            ],
+            systemDesign: [
+                {
+                    title: "Designing Data-Intensive Applications",
+                    author: "Martin Kleppmann",
+                    skills: ["Data Systems", "Scalability", "Architecture"],
+                    premium: true
+                },
+                {
+                    title: "System Design Interview",
+                    author: "Alex Xu",
+                    skills: ["Interview Prep", "System Design", "Scalability"],
+                    premium: true
+                },
+                {
+                    title: "Building Microservices: Designing Fine-Grained Systems",
+                    author: "Sam Newman",
+                    skills: ["Microservices", "Architecture", "Distributed Systems"],
+                    premium: true
+                }
+            ],
+            aiMl: [
+                {
+                    title: "Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow",
+                    author: "Aurélien Géron",
+                    skills: ["Machine Learning", "TensorFlow", "Deep Learning"],
+                    premium: true
+                },
+                {
+                    title: "Pattern Recognition and Machine Learning",
+                    author: "Christopher Bishop",
+                    skills: ["Pattern Recognition", "ML Theory", "Algorithms"],
+                    premium: true
+                },
+                {
+                    title: "Deep Learning",
+                    author: "Ian Goodfellow, Yoshua Bengio, Aaron Courville",
+                    skills: ["Deep Learning", "Neural Networks", "AI"],
+                    premium: true
+                }
+            ],
+            devops: [
+                {
+                    title: "The Phoenix Project: A Novel About IT, DevOps, and Helping Your Business Win",
+                    author: "Gene Kim, Kevin Behr, George Spafford",
+                    skills: ["DevOps", "IT Management", "Business"],
+                    premium: true
+                },
+                {
+                    title: "Site Reliability Engineering: How Google Runs Production Systems",
+                    author: "Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy",
+                    skills: ["SRE", "Reliability", "Operations"],
+                    premium: true
+                },
+                {
+                    title: "The DevOps Handbook: How to Create World-Class Agility, Reliability, & Security in Technology Organizations",
+                    author: "Gene Kim, Jez Humble, Patrick Debois, John Willis",
+                    skills: ["DevOps", "Agility", "Security"],
+                    premium: true
+                }
+            ]
+        };
+
+        // Initialize the skills assessment
+        function initializeAssessment() {
+            setupEventListeners();
+            loadUserProgress();
+            updateProgressDisplay();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all nav items
+                    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    const section = this.dataset.section;
+                    showSection(section);
+                });
+            });
+
+            // Skill rating buttons
+            document.querySelectorAll('.rating-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const ratingContainer = this.parentElement;
+                    const skill = ratingContainer.dataset.skill;
+                    const value = parseInt(this.dataset.value);
+                    
+                    // Remove selected class from all buttons in this container
+                    ratingContainer.querySelectorAll('.rating-btn').forEach(b => {
+                        b.classList.remove('selected');
+                    });
+                    
+                    // Add selected class to clicked button
+                    this.classList.add('selected');
+                    
+                    // Store the rating
+                    assessmentData.userSkills[skill] = value;
+                    
+                    // Update progress
+                    updateAssessmentProgress();
+                });
+            });
+        }
+
+        // Show specific section
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+
+            // Handle premium sections
+            if (sectionName.includes('premium') && !assessmentData.premium) {
+                showPaymentSection();
+            }
+        }
+
+        // Update assessment progress
+        function updateAssessmentProgress() {
+            const assessedCount = Object.keys(assessmentData.userSkills).length;
+            assessmentData.assessedSkills = assessedCount;
+            
+            const progress = (assessedCount / assessmentData.totalSkills) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            document.getElementById('progressPercent').textContent = `${Math.round(progress)}%`;
+            document.getElementById('skillsAssessed').textContent = assessedCount;
+        }
+
+        // Calculate and display results
+        function calculateResults() {
+            const assessedCount = Object.keys(assessmentData.userSkills).length;
+            if (assessedCount < 5) {
+                alert('Please assess at least 5 skills to generate meaningful results.');
+                return;
+            }
+            
+            showSection('results');
+            displayResults();
+        }
+
+        // Display assessment results
+        function displayResults() {
+            const container = document.getElementById('resultsContainer');
+            let totalScore = 0;
+            let skillCount = 0;
+            
+            container.innerHTML = '';
+            
+            // Group skills by category
+            const categories = {
+                'Programming Languages': ['python', 'javascript', 'java'],
+                'Web Development': ['react', 'nodejs'],
+                'Databases': ['sql', 'mongodb'],
+                'DevOps & Cloud': ['docker', 'aws']
+            };
+            
+            for (const [category, skills] of Object.entries(categories)) {
+                let categoryHtml = `
+                    <div class="result-card">
+                        <h3>${category}</h3>
+                `;
+                
+                let categoryScore = 0;
+                let categoryCount = 0;
+                
+                skills.forEach(skill => {
+                    if (assessmentData.userSkills[skill]) {
+                        const score = assessmentData.userSkills[skill];
+                        categoryScore += score;
+                        categoryCount++;
+                        skillCount++;
+                        totalScore += score;
+                        
+                        const level = getSkillLevel(score);
+                        categoryHtml += `
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <div class="skill-name">${skill.charAt(0).toUpperCase() + skill.slice(1)}</div>
+                                    <span class="skill-level ${level.class}">${level.text}</span>
+                                </div>
+                                <div>${score}/5</div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                if (categoryCount > 0) {
+                    const avgScore = (categoryScore / categoryCount).toFixed(1);
+                    categoryHtml += `
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                            <strong>Average: ${avgScore}/5</strong>
+                        </div>
+                    `;
+                }
+                
+                categoryHtml += `</div>`;
+                container.innerHTML += categoryHtml;
+            }
+            
+            // Calculate overall score
+            const overallScore = skillCount > 0 ? (totalScore / (skillCount * 5)) * 100 : 0;
+            document.getElementById('overallScore').textContent = `${overallScore.toFixed(1)}%`;
+            document.getElementById('overallProgress').style.width = `${overallScore}%`;
+            
+            // Save progress
+            saveUserProgress();
+        }
+
+        // Get skill level based on score
+        function getSkillLevel(score) {
+            if (score <= 2) return { text: 'Beginner', class: 'level-beginner' };
+            if (score <= 3) return { text: 'Intermediate', class: 'level-intermediate' };
+            if (score <= 4) return { text: 'Advanced', class: 'level-advanced' };
+            return { text: 'Expert', class: 'level-expert' };
+        }
+
+        // Show payment section
+        function showPaymentSection() {
+            showSection('payment');
+        }
+
+        // Load user progress from localStorage
+        function loadUserProgress() {
+            const saved = localStorage.getItem('skillsAssessment');
+            if (saved) {
+                const data = JSON.parse(saved);
+                assessmentData.userSkills = data.userSkills || {};
+                assessmentData.premium = data.premium || false;
+                
+                // Restore selected ratings
+                for (const [skill, rating] of Object.entries(assessmentData.userSkills)) {
+                    const ratingContainer = document.querySelector(`[data-skill="${skill}"]`);
+                    if (ratingContainer) {
+                        const ratingBtn = ratingContainer.querySelector(`[data-value="${rating}"]`);
+                        if (ratingBtn) {
+                            ratingBtn.classList.add('selected');
+                        }
+                    }
+                }
+                
+                updateAssessmentProgress();
+            }
+        }
+
+        // Save user progress to localStorage
+        function saveUserProgress() {
+            localStorage.setItem('skillsAssessment', JSON.stringify(assessmentData));
+        }
+
+        // Update progress display
+        function updateProgressDisplay() {
+            const progress = (assessmentData.assessedSkills / assessmentData.totalSkills) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            document.getElementById('progressPercent').textContent = `${Math.round(progress)}%`;
+            document.getElementById('skillsAssessed').textContent = assessmentData.assessedSkills;
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeAssessment);
+    </script>
+</body>
+</html>

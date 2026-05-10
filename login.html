@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Guide - Login</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #ddd;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo a {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background-color: var(--light-gray);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            background-color: #e8f4fd;
+            font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+
+        /* Auth Container */
+        .auth-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .auth-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .hint {
+            display: block;
+            margin-top: 0.3rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .auth-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Messages */
+        .message {
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .error-message {
+            background-color: #fde8e8;
+            color: var(--accent-color);
+            border: 1px solid #f5c6cb;
+        }
+
+        .success-message {
+            background-color: #e8fdf1;
+            color: var(--success-color);
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Career Selection Styles */
+        .career-selection-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .career-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .career-option {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .career-option:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .career-option.selected {
+            border-color: var(--primary-color);
+            background-color: #e8f4fd;
+        }
+
+        .career-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Dashboard Styles */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .dashboard-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+
+        .progress-container {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: var(--light-color);
+            border-radius: 5px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success-color);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            padding: 1rem 1.5rem;
+            background-color: var(--light-color);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-completed {
+            background-color: #e8f6f3;
+            color: var(--success-color);
+        }
+
+        .status-in-progress {
+            background-color: #fef9e7;
+            color: var(--warning-color);
+        }
+
+        .status-not-started {
+            background-color: #f4f6f6;
+            color: #7f8c8d;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .career-path-details {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .path-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .path-icon {
+            font-size: 3rem;
+            margin-right: 1.5rem;
+        }
+
+        .path-info h2 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .path-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .path-stat {
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--light-color);
+            border-radius: 6px;
+        }
+
+        .path-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .path-stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .user-profile-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 2rem;
+            font-weight: bold;
+            font-size: 2rem;
+        }
+
+        .profile-details {
+            flex: 1;
+        }
+
+        .profile-details h2 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .profile-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-item {
+            padding: 1rem;
+            background-color: var(--light-color);
+            border-radius: 6px;
+        }
+
+        .info-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .modal h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .modal p {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0;
+                text-align: center;
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem;
+                width: 100%;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .user-info {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo"><a href="index.html">CareerGuide</a></div>
+                <button class="mobile-menu-btn">☰</button>
+                <ul class="nav-links" id="navLinks">
+                 <li><a href="cg.home_page.html" class="active">Home</a></li>
+                    <li><a href="ass.html" class="protected-link" data-page="assessments.html">Assessments</a></li>
+                    <li><a href="career_patth.html" class="protected-link" data-page="career-paths.html">Career Paths</a></li>
+                    <li><a href="RES.html" class="protected-link" data-page="resources.html">Resources</a></li>
+                    <li><a href="#" class="protected-link" data-page="counseling.html">Counseling</a></li>
+                    <li><a href="login.html" id="auth-link">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Login Required Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h3>Login Required</h3>
+            <p>Please login to access this content.</p>
+            <div class="modal-buttons">
+                <a href="login.html" class="btn">Login</a>
+                <a href="register.html" class="btn btn-outline">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Login Form -->
+        <div class="container" id="loginSection">
+            <div class="auth-container">
+                <h2 class="auth-title">Login to Your Account</h2>
+                
+                <div id="errorMessage" class="message error-message" style="display: none;">
+                    Invalid email or password.
+                </div>
+                
+                <div id="successMessage" class="message success-message" style="display: none;">
+                    Login successful! Redirecting...
+                </div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                        <small class="hint">Use: mwathore967@gmail.com / Sumit@12</small>
+                    </div>
+                    
+                    <button type="submit" class="btn submit-btn">Login</button>
+                </form>
+                
+                <div class="auth-footer">
+                    Don't have an account? <a href="#" onclick="createDemoAccount()">Use Demo Account</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Career Selection Form (Hidden by default) -->
+        <div class="container" id="careerSelectionSection" style="display: none;">
+            <div class="career-selection-container">
+                <h2 class="auth-title">Tell Us About Your Career Goals</h2>
+                <p style="text-align: center; margin-bottom: 2rem; color: #666;">
+                    Help us personalize your career guidance by selecting your interests and goals.
+                </p>
+                
+                <form id="careerForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="educationLevel">Current Education Level</label>
+                        <select id="educationLevel" name="educationLevel" required>
+                            <option value="">Select your education level</option>
+                            <option value="highschool">High School</option>
+                            <option value="undergraduate">Undergraduate</option>
+                            <option value="graduate">Graduate</option>
+                            <option value="postgraduate">Postgraduate</option>
+                            <option value="working">Working Professional</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Your Career Interest Areas</label>
+                        <div class="career-options">
+                            <div class="career-option" data-career="technology">
+                                <div class="career-icon">💻</div>
+                                <h3>Technology</h3>
+                                <p>Software, IT, Data Science</p>
+                            </div>
+                            <div class="career-option" data-career="healthcare">
+                                <div class="career-icon">⚕️</div>
+                                <h3>Healthcare</h3>
+                                <p>Medicine, Nursing, Pharmacy</p>
+                            </div>
+                            <div class="career-option" data-career="business">
+                                <div class="career-icon">💼</div>
+                                <h3>Business</h3>
+                                <p>Management, Marketing, Finance</p>
+                            </div>
+                            <div class="career-option" data-career="creative">
+                                <div class="career-icon">🎨</div>
+                                <h3>Creative Arts</h3>
+                                <p>Design, Media, Arts</p>
+                            </div>
+                        </div>
+                        <input type="hidden" id="selectedCareer" name="selectedCareer" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="experienceLevel">Years of Experience</label>
+                        <select id="experienceLevel" name="experienceLevel" required>
+                            <option value="">Select experience level</option>
+                            <option value="0-2">0-2 years</option>
+                            <option value="3-5">3-5 years</option>
+                            <option value="6-10">6-10 years</option>
+                            <option value="10+">10+ years</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="goalTimeline">Career Goal Timeline</label>
+                        <select id="goalTimeline" name="goalTimeline" required>
+                            <option value="">Select timeline</option>
+                            <option value="3months">3 months</option>
+                            <option value="6months">6 months</option>
+                            <option value="1year">1 year</option>
+                            <option value="2years">2 years</option>
+                            <option value="5years">5+ years</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn submit-btn">Save & Continue to Dashboard</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Dashboard (Hidden by default) -->
+        <div class="container" id="dashboardSection" style="display: none;">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-details">
+                        <h2 id="userName">User Name</h2>
+                        <p id="userEmail">user@example.com</p>
+                    </div>
+                </div>
+                <div class="user-stats">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="assessmentsCount">0</div>
+                            <div class="stat-label">Assessments Completed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="careerPathsCount">1</div>
+                            <div class="stat-label">Career Paths Selected</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="coursesProgress">0%</div>
+                            <div class="stat-label">Overall Progress</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Profile Section -->
+            <div class="dashboard-section">
+                <div class="user-profile-section">
+                    <div class="profile-header">
+                        <div class="profile-avatar" id="profileAvatar">S</div>
+                        <div class="profile-details">
+                            <h2 id="profileName">Sumit Mwathore</h2>
+                            <p id="profileEmail">mwathore967@gmail.com</p>
+                            <p id="profileCareer" style="color: var(--primary-color); font-weight: 500;">Career Path: Technology</p>
+                        </div>
+                    </div>
+                    <div class="profile-info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Education Level</div>
+                            <div class="info-value" id="profileEducation">Undergraduate</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Experience</div>
+                            <div class="info-value" id="profileExperience">0-2 years</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Goal Timeline</div>
+                            <div class="info-value" id="profileTimeline">1 year</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Member Since</div>
+                            <div class="info-value" id="profileJoinDate">2024</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selected Career Path Details -->
+            <div class="dashboard-section">
+                <div class="career-path-details">
+                    <div class="path-header">
+                        <div class="path-icon" id="pathIcon">💻</div>
+                        <div class="path-info">
+                            <h2 id="pathTitle">Your Selected Career Path</h2>
+                            <p id="pathDescription">Based on your interests and goals</p>
+                        </div>
+                    </div>
+                    
+                    <div class="path-stats">
+                        <div class="path-stat">
+                            <div class="path-stat-value" id="pathSalary">$85,000</div>
+                            <div class="path-stat-label">Avg. Salary</div>
+                        </div>
+                        <div class="path-stat">
+                            <div class="path-stat-value" id="pathGrowth">15%</div>
+                            <div class="path-stat-label">Job Growth</div>
+                        </div>
+                        <div class="path-stat">
+                            <div class="path-stat-value" id="pathDemand">High</div>
+                            <div class="path-stat-label">Market Demand</div>
+                        </div>
+                        <div class="path-stat">
+                            <div class="path-stat-value" id="pathTimeline">1 year</div>
+                            <div class="path-stat-label">Your Timeline</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <h3>Your Career Path Progress</h3>
+                            <span id="pathProgress">25%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="pathProgressBar" style="width: 25%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personalized Recommendations -->
+            <div class="dashboard-section">
+                <h2 class="section-title">Personalized Career Guidance for Sumit</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recommended Courses</h3>
+                            <span class="status-badge status-in-progress">In Progress</span>
+                        </div>
+                        <div class="card-content">
+                            <p id="recommendedCourses">Python Programming, Web Development, Data Analysis, Cloud Computing, AI/ML Fundamentals</p>
+                            <a href="#" class="btn">Continue Learning</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Skill Development</h3>
+                            <span class="status-badge status-not-started">Not Started</span>
+                        </div>
+                        <div class="card-content">
+                            <p id="skillDevelopment">Programming, Problem Solving, Data Analysis, Agile Methodology, System Design</p>
+                            <a href="#" class="btn">Develop Skills</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Career Roadmap</h3>
+                            <span class="status-badge status-not-started">Not Started</span>
+                        </div>
+                        <div class="card-content">
+                            <p id="careerRoadmap">Learn fundamentals → Build projects → Get certified → Apply for internships → Full-time position</p>
+                            <a href="#" class="btn">View Roadmap</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="dashboard-section">
+                <h2 class="section-title">Your Next Steps</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Complete Assessment</h3>
+                            <span class="status-badge status-completed">Completed</span>
+                        </div>
+                        <div class="card-content">
+                            <p>Technical skills assessment and career interest evaluation</p>
+                            <a href="#" class="btn">View Results</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Explore Job Market</h3>
+                            <span class="status-badge status-in-progress">In Progress</span>
+                        </div>
+                        <div class="card-content">
+                            <p>Research current opportunities in Software Development</p>
+                            <a href="#" class="btn">Explore Jobs</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Connect with Mentor</h3>
+                            <span class="status-badge status-not-started">Not Started</span>
+                        </div>
+                        <div class="card-content">
+                            <p>Find experienced professionals in Technology industry</p>
+                            <a href="#" class="btn">Find Mentor</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">CareerGuide</div>
+                <p class="copyright">© 2024 CareerGuide. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global navigation management
+        const NavigationManager = {
+            init: function() {
+                this.setupNavigation();
+                this.setupProtectedLinks();
+                this.setupMobileMenu();
+            },
+
+            setupNavigation: function() {
+                const navLinks = document.getElementById('navLinks');
+                const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                const currentUser = isLoggedIn ? JSON.parse(localStorage.getItem('currentUser')) : null;
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+                const navigationItems = [
+                    { href: 'index.html', text: 'Home', requiresAuth: false },
+                    { href: 'assigment.html', text: 'Assessments', requiresAuth: true, dataPage: 'assessments.html' },
+                    { href: '#', text: 'Career Paths', requiresAuth: true, dataPage: 'career-paths.html' },
+                    { href: '#', text: 'Resources', requiresAuth: true, dataPage: 'resources.html' },
+                    { href: '#', text: 'Counseling', requiresAuth: true, dataPage: 'counseling.html' }
+                ];
+
+                let navHTML = '';
+
+                navigationItems.forEach(item => {
+                    const isActive = currentPage === item.href;
+                    const activeClass = isActive ? 'active' : '';
+                    
+                    if (item.requiresAuth && !isLoggedIn) {
+                        navHTML += `
+                            <li>
+                                <a href="#" class="protected-link ${activeClass}" data-page="${item.dataPage}">
+                                    ${item.text}
+                                </a>
+                            </li>
+                        `;
+                    } else if (item.requiresAuth && isLoggedIn) {
+                        navHTML += `
+                            <li>
+                                <a href="${item.dataPage}" class="${activeClass}">
+                                    ${item.text}
+                                </a>
+                            </li>
+                        `;
+                    } else {
+                        navHTML += `
+                            <li>
+                                <a href="${item.href}" class="${activeClass}">
+                                    ${item.text}
+                                </a>
+                            </li>
+                        `;
+                    }
+                });
+
+                // Add login/logout button
+                if (isLoggedIn && currentUser) {
+                    navHTML += `
+                        <li>
+                            <div class="user-menu">
+                                <a href="dashboard.html" class="btn" style="margin-right: 10px;">
+                                    <i class="user-avatar-small">${currentUser.name.charAt(0).toUpperCase()}</i>
+                                    Dashboard
+                                </a>
+                                <a href="#" id="logoutBtn" class="btn btn-outline">Logout</a>
+                            </div>
+                        </li>
+                    `;
+                } else {
+                    navHTML += `
+                        <li>
+                            <a href="login.html" class="btn">Login</a>
+                        </li>
+                    `;
+                }
+
+                navLinks.innerHTML = navHTML;
+
+                // Setup logout functionality
+                const logoutBtn = document.getElementById('logoutBtn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        localStorage.removeItem('isLoggedIn');
+                        localStorage.removeItem('currentUser');
+                        window.location.href = 'index.html';
+                    });
+                }
+            },
+
+            setupProtectedLinks: function() {
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('protected-link')) {
+                        e.preventDefault();
+                        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                        
+                        if (!isLoggedIn) {
+                            document.getElementById('loginModal').style.display = 'flex';
+                        } else {
+                            const targetPage = e.target.getAttribute('data-page');
+                            window.location.href = targetPage;
+                        }
+                    }
+                });
+
+                // Close modal when clicking outside
+                document.getElementById('loginModal').addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.style.display = 'none';
+                    }
+                });
+            },
+
+            setupMobileMenu: function() {
+                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+                const navLinks = document.querySelector('.nav-links');
+
+                if (mobileMenuBtn && navLinks) {
+                    mobileMenuBtn.addEventListener('click', function() {
+                        navLinks.classList.toggle('active');
+                    });
+
+                    // Close mobile menu when clicking on a link
+                    navLinks.addEventListener('click', function(e) {
+                        if (e.target.tagName === 'A') {
+                            navLinks.classList.remove('active');
+                        }
+                    });
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize navigation
+            NavigationManager.init();
+
+            const loginSection = document.getElementById('loginSection');
+            const careerSelectionSection = document.getElementById('careerSelectionSection');
+            const dashboardSection = document.getElementById('dashboardSection');
+            const loginForm = document.getElementById('loginForm');
+            const careerForm = document.getElementById('careerForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            const careerOptions = document.querySelectorAll('.career-option');
+            const selectedCareerInput = document.getElementById('selectedCareer');
+            
+            // Initialize your account
+            initializeMwathoreAccount();
+
+            // Career path data
+            const careerData = {
+                technology: {
+                    title: "Technology Career Path",
+                    description: "Software Development, Data Science, Cybersecurity",
+                    icon: "💻",
+                    salary: "$85,000",
+                    growth: "15%",
+                    demand: "High",
+                    courses: "Python Programming, Web Development, Data Analysis, Cloud Computing, AI/ML Fundamentals",
+                    skills: "Programming, Problem Solving, Data Analysis, Agile Methodology, System Design",
+                    roadmap: "Learn fundamentals → Build projects → Get certified → Apply for internships → Full-time position"
+                },
+                healthcare: {
+                    title: "Healthcare Career Path",
+                    description: "Medicine, Nursing, Pharmacy, Healthcare Administration",
+                    icon: "⚕️",
+                    salary: "$75,000",
+                    growth: "12%",
+                    demand: "Very High",
+                    courses: "Medical Terminology, Patient Care, Healthcare Systems, Pharmacology, Medical Ethics",
+                    skills: "Patient Care, Medical Knowledge, Communication, Empathy, Critical Thinking",
+                    roadmap: "Complete education → Get licensed → Gain experience → Specialize → Advanced practice"
+                },
+                business: {
+                    title: "Business Career Path",
+                    description: "Management, Marketing, Finance, Entrepreneurship",
+                    icon: "💼",
+                    salary: "$70,000",
+                    growth: "8%",
+                    demand: "Medium",
+                    courses: "Business Management, Marketing Strategy, Financial Analysis, Leadership, Digital Marketing",
+                    skills: "Strategic Thinking, Communication, Financial Literacy, Leadership, Analytics",
+                    roadmap: "Build foundation → Gain experience → Develop specialization → Management role → Executive position"
+                },
+                creative: {
+                    title: "Creative Arts Career Path",
+                    description: "Design, Media, Arts, Content Creation",
+                    icon: "🎨",
+                    salary: "$60,000",
+                    growth: "10%",
+                    demand: "Medium",
+                    courses: "Graphic Design, Digital Media, Creative Writing, Photography, UI/UX Design",
+                    skills: "Creativity, Technical Skills, Visual Communication, Storytelling, Brand Development",
+                    roadmap: "Build portfolio → Network → Freelance projects → Agency work → Creative director"
+                }
+            };
+
+            function initializeMwathoreAccount() {
+                // Check if mwathore account exists, if not create it
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const mwathoreAccount = users.find(u => u.email === 'mwathore967@gmail.com');
+                
+                if (!mwathoreAccount) {
+                    users.push({
+                        email: 'mwathore967@gmail.com',
+                        password: 'Sumit@12',
+                        name: 'Sumit Mwathore',
+                        createdAt: new Date().toISOString()
+                    });
+                    localStorage.setItem('users', JSON.stringify(users));
+                    console.log('Mwathore account created successfully');
+                }
+
+                // Auto-fill login form
+                document.getElementById('email').value = 'mwathore967@gmail.com';
+                document.getElementById('password').value = 'Sumit@12';
+            }
+
+            // Check if user is already logged in and has completed career selection
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (localStorage.getItem(`careerSelected_${currentUser.email}`) === 'true') {
+                    showDashboard();
+                } else {
+                    showCareerSelection();
+                }
+            }
+
+            // Career option selection
+            careerOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    careerOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedCareerInput.value = this.getAttribute('data-career');
+                });
+            });
+
+            // Login form submission
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
+                
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    // Login successful
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    
+                    successMessage.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        // Check if user has already selected career path
+                        if (localStorage.getItem(`careerSelected_${email}`) === 'true') {
+                            showDashboard();
+                        } else {
+                            showCareerSelection();
+                        }
+                    }, 1500);
+                } else {
+                    // Login failed
+                    errorMessage.style.display = 'block';
+                }
+            });
+
+            // Career form submission
+            careerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                const fullName = document.getElementById('fullName').value;
+                const selectedCareer = selectedCareerInput.value;
+                const educationLevel = document.getElementById('educationLevel').value;
+                const experienceLevel = document.getElementById('experienceLevel').value;
+                const goalTimeline = document.getElementById('goalTimeline').value;
+                
+                // Update user name if provided
+                if (fullName) {
+                    currentUser.name = fullName;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    
+                    // Update in users array
+                    const users = JSON.parse(localStorage.getItem('users'));
+                    const userIndex = users.findIndex(u => u.email === currentUser.email);
+                    if (userIndex !== -1) {
+                        users[userIndex].name = fullName;
+                        localStorage.setItem('users', JSON.stringify(users));
+                    }
+                }
+                
+                // Save career selection
+                const careerSelection = {
+                    career: selectedCareer,
+                    education: educationLevel,
+                    experience: experienceLevel,
+                    timeline: goalTimeline,
+                    selectedDate: new Date().toISOString()
+                };
+                
+                localStorage.setItem(`careerSelection_${currentUser.email}`, JSON.stringify(careerSelection));
+                localStorage.setItem(`careerSelected_${currentUser.email}`, 'true');
+                
+                // Send welcome email
+                console.log(`Sending welcome email to ${currentUser.email}`);
+                console.log(`Email content: Welcome ${currentUser.name}! Your ${careerData[selectedCareer].title} journey begins now. We're excited to help you achieve your career goals in ${goalTimeline}.`);
+                
+                showDashboard();
+            });
+
+            function showCareerSelection() {
+                loginSection.style.display = 'none';
+                careerSelectionSection.style.display = 'block';
+                dashboardSection.style.display = 'none';
+                
+                // Pre-fill name if available
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUser && currentUser.name) {
+                    document.getElementById('fullName').value = currentUser.name;
+                }
+            }
+
+            function showDashboard() {
+                loginSection.style.display = 'none';
+                careerSelectionSection.style.display = 'none';
+                dashboardSection.style.display = 'block';
+                
+                // Load user data
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                const careerSelection = JSON.parse(localStorage.getItem(`careerSelection_${currentUser.email}`));
+                const career = careerData[careerSelection.career];
+                
+                // Update user info
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userEmail').textContent = currentUser.email;
+                document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+                
+                // Update profile section
+                document.getElementById('profileName').textContent = currentUser.name;
+                document.getElementById('profileEmail').textContent = currentUser.email;
+                document.getElementById('profileAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+                document.getElementById('profileCareer').textContent = `Career Path: ${careerSelection.career.charAt(0).toUpperCase() + careerSelection.career.slice(1)}`;
+                document.getElementById('profileEducation').textContent = getEducationText(careerSelection.education);
+                document.getElementById('profileExperience').textContent = careerSelection.experience;
+                document.getElementById('profileTimeline').textContent = getTimelineText(careerSelection.timeline);
+                document.getElementById('profileJoinDate').textContent = new Date().getFullYear();
+                
+                // Update career path details
+                document.getElementById('pathIcon').textContent = career.icon;
+                document.getElementById('pathTitle').textContent = career.title;
+                document.getElementById('pathDescription').textContent = career.description;
+                document.getElementById('pathSalary').textContent = career.salary;
+                document.getElementById('pathGrowth').textContent = career.growth;
+                document.getElementById('pathDemand').textContent = career.demand;
+                document.getElementById('pathTimeline').textContent = getTimelineText(careerSelection.timeline);
+                
+                // Update recommendations
+                document.getElementById('recommendedCourses').textContent = career.courses;
+                document.getElementById('skillDevelopment').textContent = career.skills;
+                document.getElementById('careerRoadmap').textContent = career.roadmap;
+                
+                // Set progress based on timeline and experience
+                let progress = calculateProgress(careerSelection.experience, careerSelection.timeline);
+                
+                document.getElementById('pathProgress').textContent = progress + '%';
+                document.getElementById('pathProgressBar').style.width = progress + '%';
+                document.getElementById('coursesProgress').textContent = progress + '%';
+                
+                // Update navigation
+                NavigationManager.setupNavigation();
+            }
+
+            function getEducationText(education) {
+                const educationMap = {
+                    'highschool': 'High School',
+                    'undergraduate': 'Undergraduate',
+                    'graduate': 'Graduate',
+                    'postgraduate': 'Postgraduate',
+                    'working': 'Working Professional'
+                };
+                return educationMap[education] || education;
+            }
+
+            function getTimelineText(timeline) {
+                const timelineMap = {
+                    '3months': '3 months',
+                    '6months': '6 months',
+                    '1year': '1 year',
+                    '2years': '2 years',
+                    '5years': '5+ years'
+                };
+                return timelineMap[timeline] || timeline;
+            }
+
+            function calculateProgress(experience, timeline) {
+                let progress = 0;
+                
+                // Base progress from experience
+                switch(experience) {
+                    case '0-2': progress += 10; break;
+                    case '3-5': progress += 30; break;
+                    case '6-10': progress += 50; break;
+                    case '10+': progress += 70; break;
+                }
+                
+                // Adjust based on timeline ambition
+                switch(timeline) {
+                    case '3months': progress += 5; break;
+                    case '6months': progress += 10; break;
+                    case '1year': progress += 15; break;
+                    case '2years': progress += 20; break;
+                    case '5years': progress += 25; break;
+                }
+                
+                return Math.min(progress, 100);
+            }
+
+            // Demo account creation
+            window.createDemoAccount = function() {
+                document.getElementById('email').value = 'mwathore967@gmail.com';
+                document.getElementById('password').value = 'Sumit@12';
+                successMessage.textContent = 'Demo account credentials filled! Click Login to continue.';
+                successMessage.style.display = 'block';
+            };
+        });
+    </script>
+</body>
+</html>

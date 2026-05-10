@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Path Builder - Advanced Configuration Tool</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #dc2626;
+            --success-color: #059669;
+            --warning-color: #d97706;
+            --info-color: #0891b2;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --text-color: #334155;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: var(--dark-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: var(--text-color);
+            font-size: 1.2rem;
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr 350px;
+            gap: 2rem;
+            min-height: 80vh;
+        }
+
+        /* Configuration Panel */
+        .config-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .config-section {
+            margin-bottom: 2rem;
+        }
+
+        .config-section h3 {
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .filter-group {
+            margin-bottom: 1rem;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .slider-container {
+            margin: 1rem 0;
+        }
+
+        .slider-value {
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border-color);
+            outline: none;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Career Visualization */
+        .visualization-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            min-height: 600px;
+        }
+
+        .career-path {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .path-level {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .career-node {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            min-width: 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .career-node:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .career-node.active {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, #dbeafe, #eff6ff);
+        }
+
+        .node-title {
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .node-meta {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .node-salary {
+            font-weight: 600;
+            color: var(--success-color);
+        }
+
+        /* Details Panel */
+        .details-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .career-details {
+            display: none;
+        }
+
+        .career-details.active {
+            display: block;
+        }
+
+        .detail-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .detail-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--light-color);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .skills-list {
+            margin: 1rem 0;
+        }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .skill-name {
+            font-weight: 500;
+        }
+
+        .skill-level {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Tools Section */
+        .tools-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tool-card {
+            background: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .tool-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card h4 {
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Buttons */
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .config-panel, .details-panel {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Career Path Builder</h1>
+            <p>Advanced Configuration Tool - Build Your Perfect Career Roadmap</p>
+        </header>
+
+        <div class="main-layout">
+            <!-- Configuration Panel -->
+            <div class="config-panel">
+                <div class="config-section">
+                    <h3>🎯 Career Field</h3>
+                    <div class="filter-group">
+                        <label>Primary Domain</label>
+                        <select id="primaryDomain" class="filter-select">
+                            <option value="all">All Domains</option>
+                            <option value="technology">Technology & IT</option>
+                            <option value="healthcare">Healthcare & Medicine</option>
+                            <option value="business">Business & Finance</option>
+                            <option value="engineering">Engineering</option>
+                            <option value="creative">Creative Arts & Design</option>
+                            <option value="science">Science & Research</option>
+                            <option value="education">Education & Academia</option>
+                            <option value="government">Government & Public Service</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <h3>💰 Salary Range</h3>
+                    <div class="slider-container">
+                        <label>Minimum Annual Salary: $<span id="salaryValue">50,000</span></label>
+                        <input type="range" id="salaryRange" min="30000" max="300000" step="10000" value="50000">
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <h3>📚 Education Level</h3>
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="eduHighSchool" checked>
+                            <label for="eduHighSchool">High School</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="eduBachelor" checked>
+                            <label for="eduBachelor">Bachelor's</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="eduMaster" checked>
+                            <label for="eduMaster">Master's</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="eduPhD" checked>
+                            <label for="eduPhD">PhD</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="eduCertification" checked>
+                            <label for="eduCertification">Certifications</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <h3>⚡ Growth Potential</h3>
+                    <div class="slider-container">
+                        <label>Growth Rate: <span id="growthValue">Medium</span></label>
+                        <input type="range" id="growthRange" min="1" max="3" step="1" value="2">
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <h3>🔧 Required Skills</h3>
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="skillTech" checked>
+                            <label for="skillTech">Technical</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="skillCreative" checked>
+                            <label for="skillCreative">Creative</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="skillAnalytical" checked>
+                            <label for="skillAnalytical">Analytical</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="skillLeadership" checked>
+                            <label for="skillLeadership">Leadership</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="skillCommunication" checked>
+                            <label for="skillCommunication">Communication</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="generateCareerPath()">Generate Career Path</button>
+            </div>
+
+            <!-- Career Visualization -->
+            <div class="visualization-panel">
+                <div class="career-path" id="careerPath">
+                    <!-- Career path will be generated here -->
+                </div>
+            </div>
+
+            <!-- Career Details -->
+            <div class="details-panel">
+                <div id="careerDetails">
+                    <div class="detail-header">
+                        <h3>Select a Career Node</h3>
+                        <p>Click on any career position to view detailed information</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Tools Section -->
+        <div class="tools-panel">
+            <h2 style="text-align: center; margin-bottom: 1rem;">🛠️ Advanced Career Tools</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">📊</div>
+                    <h4>Skill Gap Analyzer</h4>
+                    <p>Identify missing skills and create personalized learning paths</p>
+                    <button class="btn" onclick="openSkillGapAnalyzer()">Analyze Skills</button>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">🎯</div>
+                    <h4>Career Progression Simulator</h4>
+                    <p>Simulate different career paths and their outcomes</p>
+                    <button class="btn" onclick="openCareerSimulator()">Start Simulation</button>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">📈</div>
+                    <h4>Market Demand Analyzer</h4>
+                    <p>Real-time analysis of job market trends and demands</p>
+                    <button class="btn" onclick="openMarketAnalyzer()">View Analysis</button>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">🤝</div>
+                    <h4>Networking Map</h4>
+                    <p>Connect with professionals and mentors in your field</p>
+                    <button class="btn" onclick="openNetworkingMap()">Explore Network</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Comprehensive Career Database
+        const careerDatabase = {
+            technology: {
+                entry: [
+                    { title: "IT Support Specialist", salary: "$45k - $65k", skills: ["Technical Support", "Troubleshooting", "Communication"], growth: "Medium", education: "Associate/Bachelor's" },
+                    { title: "Junior Web Developer", salary: "$50k - $70k", skills: ["HTML/CSS", "JavaScript", "React"], growth: "High", education: "Bachelor's" },
+                    { title: "Data Analyst", salary: "$55k - $75k", skills: ["Excel", "SQL", "Data Visualization"], growth: "High", education: "Bachelor's" }
+                ],
+                mid: [
+                    { title: "Software Engineer", salary: "$80k - $120k", skills: ["Programming", "System Design", "Agile"], growth: "High", education: "Bachelor's" },
+                    { title: "DevOps Engineer", salary: "$90k - $130k", skills: ["Cloud", "CI/CD", "Automation"], growth: "High", education: "Bachelor's" },
+                    { title: "Product Manager", salary: "$85k - $125k", skills: ["Product Strategy", "UX", "Leadership"], growth: "High", education: "Bachelor's/Master's" }
+                ],
+                senior: [
+                    { title: "Senior Software Architect", salary: "$130k - $180k", skills: ["System Architecture", "Technical Leadership", "Cloud"], growth: "High", education: "Bachelor's/Master's" },
+                    { title: "CTO", salary: "$150k - $250k+", skills: ["Technology Strategy", "Team Leadership", "Business Acumen"], growth: "High", education: "Master's" },
+                    { title: "AI/ML Lead", salary: "$140k - $200k", skills: ["Machine Learning", "Deep Learning", "Research"], growth: "Very High", education: "Master's/PhD" }
+                ]
+            },
+            healthcare: {
+                entry: [
+                    { title: "Medical Assistant", salary: "$35k - $50k", skills: ["Patient Care", "Medical Terminology", "Communication"], growth: "Medium", education: "Certification" },
+                    { title: "Pharmacy Technician", salary: "$30k - $45k", skills: ["Medication Management", "Customer Service", "Attention to Detail"], growth: "Medium", education: "High School/Certification" },
+                    { title: "Nurse Assistant", salary: "$28k - $42k", skills: ["Patient Care", "Vital Signs", "Empathy"], growth: "Medium", education: "Certification" }
+                ],
+                mid: [
+                    { title: "Registered Nurse", salary: "$60k - $90k", skills: ["Patient Assessment", "Medical Procedures", "Critical Thinking"], growth: "High", education: "Bachelor's" },
+                    { title: "Physician Assistant", salary: "$100k - $130k", skills: ["Diagnosis", "Treatment Planning", "Medical Knowledge"], growth: "High", education: "Master's" },
+                    { title: "Physical Therapist", salary: "$75k - $95k", skills: ["Rehabilitation", "Patient Assessment", "Therapeutic Techniques"], growth: "High", education: "Doctorate" }
+                ],
+                senior: [
+                    { title: "Medical Doctor", salary: "$200k - $400k+", skills: ["Medical Expertise", "Diagnosis", "Patient Management"], growth: "High", education: "Medical Degree" },
+                    { title: "Healthcare Administrator", salary: "$90k - $150k", skills: ["Healthcare Management", "Policy", "Leadership"], growth: "High", education: "Master's" },
+                    { title: "Medical Researcher", salary: "$80k - $120k", skills: ["Research Methodology", "Data Analysis", "Scientific Writing"], growth: "High", education: "PhD" }
+                ]
+            },
+            business: {
+                entry: [
+                    { title: "Business Analyst", salary: "$55k - $75k", skills: ["Requirements Gathering", "Data Analysis", "Communication"], growth: "High", education: "Bachelor's" },
+                    { title: "Marketing Coordinator", salary: "$45k - $65k", skills: ["Digital Marketing", "Content Creation", "Analytics"], growth: "Medium", education: "Bachelor's" },
+                    { title: "Financial Analyst", salary: "$60k - $80k", skills: ["Financial Modeling", "Excel", "Analysis"], growth: "High", education: "Bachelor's" }
+                ],
+                mid: [
+                    { title: "Product Manager", salary: "$85k - $125k", skills: ["Product Strategy", "Market Research", "Leadership"], growth: "High", education: "Bachelor's/MBA" },
+                    { title: "Marketing Manager", salary: "$75k - $110k", skills: ["Campaign Management", "Brand Strategy", "Team Leadership"], growth: "High", education: "Bachelor's/MBA" },
+                    { title: "Senior Financial Analyst", salary: "$80k - $110k", skills: ["Financial Planning", "Investment Analysis", "Strategy"], growth: "High", education: "Bachelor's/MBA" }
+                ],
+                senior: [
+                    { title: "Director of Operations", salary: "$120k - $180k", skills: ["Operations Management", "Strategic Planning", "Leadership"], growth: "High", education: "MBA" },
+                    { title: "Chief Financial Officer", salary: "$150k - $300k+", skills: ["Financial Strategy", "Risk Management", "Executive Leadership"], growth: "High", education: "MBA/CPA" },
+                    { title: "Business Development VP", salary: "$130k - $200k", skills: ["Partnerships", "Market Expansion", "Negotiation"], growth: "High", education: "MBA" }
+                ]
+            }
+        };
+
+        // Initialize the career path builder
+        function initializeCareerBuilder() {
+            generateCareerPath();
+            setupEventListeners();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Salary range slider
+            document.getElementById('salaryRange').addEventListener('input', function(e) {
+                document.getElementById('salaryValue').textContent = 
+                    parseInt(e.target.value).toLocaleString();
+            });
+
+            // Growth range slider
+            document.getElementById('growthRange').addEventListener('input', function(e) {
+                const growthLabels = ['Low', 'Medium', 'High'];
+                document.getElementById('growthValue').textContent = 
+                    growthLabels[e.target.value - 1];
+            });
+
+            // Domain change
+            document.getElementById('primaryDomain').addEventListener('change', generateCareerPath);
+        }
+
+        // Generate career path based on filters
+        function generateCareerPath() {
+            const domain = document.getElementById('primaryDomain').value;
+            const minSalary = parseInt(document.getElementById('salaryRange').value);
+            const pathContainer = document.getElementById('careerPath');
+            
+            pathContainer.innerHTML = '';
+
+            // Get careers for selected domain or all domains
+            const careersToShow = domain === 'all' ? getAllCareers() : careerDatabase[domain];
+
+            if (!careersToShow) return;
+
+            // Create career path levels
+            Object.keys(careersToShow).forEach(level => {
+                const levelDiv = document.createElement('div');
+                levelDiv.className = 'path-level';
+                
+                const levelTitle = document.createElement('h3');
+                levelTitle.textContent = level.charAt(0).toUpperCase() + level.slice(1) + ' Level';
+                levelDiv.appendChild(levelTitle);
+
+                careersToShow[level].forEach(career => {
+                    if (parseInt(career.salary.replace(/[^\d]/g, '')) >= minSalary) {
+                        const careerNode = createCareerNode(career, level);
+                        levelDiv.appendChild(careerNode);
+                    }
+                });
+
+                pathContainer.appendChild(levelDiv);
+            });
+        }
+
+        // Get all careers across domains
+        function getAllCareers() {
+            const allCareers = { entry: [], mid: [], senior: [] };
+            
+            Object.values(careerDatabase).forEach(domain => {
+                Object.keys(domain).forEach(level => {
+                    allCareers[level] = allCareers[level].concat(domain[level]);
+                });
+            });
+
+            return allCareers;
+        }
+
+        // Create individual career node
+        function createCareerNode(career, level) {
+            const node = document.createElement('div');
+            node.className = 'career-node';
+            node.innerHTML = `
+                <div class="node-title">${career.title}</div>
+                <div class="node-meta">${career.education}</div>
+                <div class="node-salary">${career.salary}</div>
+                <div class="node-meta">Growth: ${career.growth}</div>
+            `;
+
+            node.addEventListener('click', () => showCareerDetails(career, level));
+            return node;
+        }
+
+        // Show detailed career information
+        function showCareerDetails(career, level) {
+            const detailsContainer = document.getElementById('careerDetails');
+            
+            detailsContainer.innerHTML = `
+                <div class="career-details active">
+                    <div class="detail-header">
+                        <h3>${career.title}</h3>
+                        <p>${level.charAt(0).toUpperCase() + level.slice(1)} Level Position</p>
+                    </div>
+                    
+                    <div class="detail-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">${career.salary}</div>
+                            <div class="stat-label">Annual Salary</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${career.growth}</div>
+                            <div class="stat-label">Growth Potential</div>
+                        </div>
+                    </div>
+
+                    <h4>Required Education</h4>
+                    <p>${career.education}</p>
+
+                    <h4>Key Skills Required</h4>
+                    <div class="skills-list">
+                        ${career.skills.map(skill => `
+                            <div class="skill-item">
+                                <span class="skill-name">${skill}</span>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <h4>Career Progression</h4>
+                    <p>Typical timeline: 2-4 years per level advancement</p>
+
+                    <button class="btn" onclick="saveCareerPath('${career.title}')">Save to My Career Plan</button>
+                </div>
+            `;
+        }
+
+        // Tool functions
+        function openSkillGapAnalyzer() {
+            alert("Opening Skill Gap Analyzer...\nThis tool will analyze your current skills and identify gaps for your target career path.");
+        }
+
+        function openCareerSimulator() {
+            alert("Launching Career Progression Simulator...\nSimulate different career moves and their impact on your long-term growth.");
+        }
+
+        function openMarketAnalyzer() {
+            alert("Loading Market Demand Analyzer...\nReal-time data on job market trends, salary benchmarks, and emerging opportunities.");
+        }
+
+        function openNetworkingMap() {
+            alert("Opening Professional Network Map...\nConnect with mentors, industry leaders, and peers in your target field.");
+        }
+
+        function saveCareerPath(careerTitle) {
+            alert(`Career "${careerTitle}" has been saved to your career plan!\nYou can access your saved plans in the dashboard.`);
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initializeCareerBuilder);
+    </script>
+</body>
+</html>

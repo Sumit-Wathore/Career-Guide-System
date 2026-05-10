@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Guide - Assessments</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --premium-color: #f39c12;
+            --free-color: #2ecc71;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #ddd;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo a {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background-color: var(--light-gray);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            background-color: #e8f4fd;
+            font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+
+        /* Assessments Hero */
+        .assessments-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .assessments-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .assessments-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .tab:hover {
+            color: var(--primary-color);
+        }
+
+        /* Assessment Categories */
+        .assessment-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-card.premium {
+            border-left-color: var(--premium-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-badge {
+            position: absolute;
+            top: 1rem;
+            right: -2rem;
+            background: var(--premium-color);
+            color: white;
+            padding: 0.5rem 3rem;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .category-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 0.5rem 0;
+            color: #555;
+        }
+
+        .features-list li:before {
+            content: "✓ ";
+            color: var(--success-color);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-free {
+            background-color: var(--free-color);
+        }
+
+        .btn-free:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-premium {
+            background-color: var(--premium-color);
+        }
+
+        .btn-premium:hover {
+            background-color: #e67e22;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Course Grid */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .course-card.premium {
+            border: 2px solid var(--premium-color);
+        }
+
+        .course-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            position: relative;
+        }
+
+        .course-header.premium {
+            background: linear-gradient(135deg, var(--premium-color), #e67e22);
+        }
+
+        .course-type {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .course-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .course-features li {
+            padding: 0.5rem 0;
+            color: #555;
+        }
+
+        .course-features li:before {
+            content: "✓ ";
+            color: var(--success-color);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .price.free {
+            color: var(--free-color);
+        }
+
+        .price.premium {
+            color: var(--premium-color);
+        }
+
+        /* Progress Section */
+        .progress-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin: 3rem 0;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .progress-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Career Placement Section */
+        .placement-section {
+            background: linear-gradient(135deg, var(--secondary-color), var(--dark-color));
+            color: white;
+            padding: 4rem 0;
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+
+        .placement-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .placement-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .placement-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .placement-stat {
+            text-align: center;
+        }
+
+        .placement-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--premium-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .placement-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .modal h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .modal p {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Success Message */
+        .success-message {
+            background-color: var(--success-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            text-align: center;
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0;
+                text-align: center;
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem;
+                width: 100%;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                text-align: center;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .placement-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo"><a href="index.html">CareerGuide</a></div>
+                <button class="mobile-menu-btn">☰</button>
+                <ul class="nav-links" id="navLinks">
+                    <!-- Navigation will be populated by JavaScript -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Login Required Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h3>Login Required</h3>
+            <p>Please login to access premium content and track your progress.</p>
+            <div class="modal-buttons">
+                <a href="login.html" class="btn">Login</a>
+                <a href="register.html" class="btn btn-outline">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Purchase Success Modal -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <h3>🎉 Purchase Successful!</h3>
+            <p id="purchaseMessage">Your course has been successfully enrolled. Check your email for confirmation.</p>
+            <div class="modal-buttons">
+                <button class="btn" onclick="closePurchaseModal()">Continue Learning</button>
+                <a href="dashboard.html" class="btn btn-outline">Go to Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Assessments Hero -->
+        <section class="assessments-hero">
+            <div class="container">
+                <h1>Career Assessments & Courses</h1>
+                <p>Discover your strengths, develop new skills, and prepare for your dream career with our comprehensive assessment tools and learning resources.</p>
+                <div class="tabs">
+                    <button class="tab active" data-tab="free">Free Materials</button>
+                    <button class="tab" data-tab="premium">Premium Courses</button>
+                    <button class="tab" data-tab="placement">Career Placement</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message" style="display: none;">
+                🎉 Course enrolled successfully! Redirecting to learning portal...
+            </div>
+
+            <!-- Free Materials Section -->
+            <section id="free-section" class="tab-content active">
+                <h2 style="text-align: center; margin: 2rem 0; color: var(--secondary-color);">Free Career Assessment Materials</h2>
+                
+                <div class="assessment-categories">
+                    <!-- Interest Assessment -->
+                    <div class="category-card">
+                        <div class="category-icon">🎯</div>
+                        <h3>Career Interest Assessment</h3>
+                        <p>Discover careers that match your interests and passions</p>
+                        <ul class="features-list">
+                            <li>30-minute comprehensive assessment</li>
+                            <li>Personalized career matches</li>
+                            <li>Industry demand analysis</li>
+                            <li>Free detailed report</li>
+                        </ul>
+                        <button class="btn btn-free" style="width: 100%;" onclick="startFreeAssessment('interest')">Start Free Assessment</button>
+                    </div>
+
+                    <!-- Skills Assessment -->
+                    <div class="category-card">
+                        <div class="category-icon">💪</div>
+                        <h3>Skills Gap Analysis</h3>
+                        <p>Identify your current skills and areas for development</p>
+                        <ul class="features-list">
+                            <li>Comprehensive skills inventory</li>
+                            <li>Industry benchmark comparison</li>
+                            <li>Personalized learning path</li>
+                            <li>Progress tracking</li>
+                        </ul>
+                        <button class="btn btn-free" style="width: 100%;" onclick="startFreeAssessment('skills')">Analyze My Skills</button>
+                    </div>
+
+                    <!-- Personality Assessment -->
+                    <div class="category-card">
+                        <div class="category-icon">🧠</div>
+                        <h3>Personality & Work Style</h3>
+                        <p>Understand how your personality fits different work environments</p>
+                        <ul class="features-list">
+                            <li>Personality type identification</li>
+                            <li>Work environment preferences</li>
+                            <li>Team role suggestions</li>
+                            <li>Communication style analysis</li>
+                        </ul>
+                        <button class="btn btn-free" style="width: 100%;" onclick="startFreeAssessment('personality')">Discover My Style</button>
+                    </div>
+                </div>
+
+                <!-- Free Courses -->
+                <h3 style="margin: 3rem 0 1.5rem; color: var(--secondary-color);">Free Learning Resources</h3>
+                <div class="course-grid">
+                    <div class="course-card">
+                        <div class="course-header">
+                            <h3>Resume Building Basics</h3>
+                            <span class="course-type">Free</span>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span>⏱️ 2 hours</span>
+                                <span>📊 Beginner</span>
+                            </div>
+                            <p>Learn to create professional resumes that stand out to employers.</p>
+                            <ul class="course-features">
+                                <li>ATS-friendly formatting</li>
+                                <li>Keyword optimization</li>
+                                <li>Achievement statements</li>
+                                <li>Template library access</li>
+                            </ul>
+                            <div class="price free">FREE</div>
+                            <button class="btn btn-free" style="width: 100%;" onclick="enrollFreeCourse('resume')">Enroll Now</button>
+                        </div>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-header">
+                            <h3>Interview Preparation</h3>
+                            <span class="course-type">Free</span>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span>⏱️ 3 hours</span>
+                                <span>📊 Intermediate</span>
+                            </div>
+                            <p>Master common interview questions and techniques.</p>
+                            <ul class="course-features">
+                                <li>Behavioral questions</li>
+                                <li>Technical interview prep</li>
+                                <li>Salary negotiation tips</li>
+                                <li>Practice scenarios</li>
+                            </ul>
+                            <div class="price free">FREE</div>
+                            <button class="btn btn-free" style="width: 100%;" onclick="enrollFreeCourse('interview')">Start Learning</button>
+                        </div>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-header">
+                            <h3>LinkedIn Profile Optimization</h3>
+                            <span class="course-type">Free</span>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span>⏱️ 1.5 hours</span>
+                                <span>📊 Beginner</span>
+                            </div>
+                            <p>Transform your LinkedIn profile into a career magnet.</p>
+                            <ul class="course-features">
+                                <li>Profile completeness</li>
+                                <li>Keyword optimization</li>
+                                <li>Networking strategies</li>
+                                <li>Content creation tips</li>
+                            </ul>
+                            <div class="price free">FREE</div>
+                            <button class="btn btn-free" style="width: 100%;" onclick="enrollFreeCourse('linkedin')">Optimize Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Premium Courses Section -->
+            <section id="premium-section" class="tab-content" style="display: none;">
+                <h2 style="text-align: center; margin: 2rem 0; color: var(--secondary-color);">Premium Career Development Courses</h2>
+                
+                <div class="course-grid">
+                    <!-- $199 Tier -->
+                    <div class="course-card premium">
+                        <div class="course-header premium">
+                            <h3>Career Starter Pro</h3>
+                            <span class="course-type">$199</span>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span>⏱️ 40 hours</span>
+                                <span>📊 Beginner to Intermediate</span>
+                            </div>
+                            <p>Kickstart your career with essential skills and job-ready training.</p>
+                            <ul class="course-features">
+                                <li>Technical skill foundations</li>
+                                <li>Resume & portfolio building</li>
+                                <li>Interview preparation</li>
+                                <li>Job search strategies</li>
+                                <li>3 mock interviews</li>
+                                <li>Certificate of completion</li>
+                            </ul>
+                            <div class="price premium">$199</div>
+                            <div class="course-savings" style="text-align: center; color: var(--success-color); font-weight: 600; margin: 0.5rem 0;">
+                                Save 33% vs individual courses
+                            </div>
+                            <button class="btn btn-premium" style="width: 100%;" onclick="purchaseCourse(199, 'Career Starter Pro')">Enroll Now - $199</button>
+                            <div style="text-align: center; margin-top: 0.5rem; font-size: 0.9rem; color: #666;">
+                                ⭐ Perfect for career starters
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- $499 Tier -->
+                    <div class="course-card premium" style="border: 3px solid var(--premium-color); transform: scale(1.02);">
+                        <div class="course-header premium" style="background: linear-gradient(135deg, var(--premium-color), #d35400);">
+                            <h3>Career Accelerator</h3>
+                            <span class="course-type" style="background: rgba(255,255,255,0.3);">$499</span>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span>⏱️ 80 hours</span>
+                                <span>📊 Intermediate to Advanced</span>
+                            </div>
+                            <p>Accelerate your career growth with advanced training and personalized coaching.</p>
+                            <ul class="course-features">
+                                <li>Advanced technical skills</li>
+                                <li>Leadership development</li>
+                                <li>Personal career coach</li>
+                                <li>Industry networking</li>
+                                <li>8 mock interviews</li>
+                                <li>Career strategy sessions</li>
+                                <li>Premium certificate</li>
+                                <li>LinkedIn optimization</li>
+                            </ul>
+                            <div class="price premium">$499</div>
+                            <div class="course-savings" style="text-align: center; color: var(--success-color); font-weight: 600; margin: 0.5rem 0;">
+                                Save 50% vs individual services
+                            </div>
+                            <button class="btn btn-premium" style="width: 100%; background: linear-gradient(135deg, var(--premium-color), #d35400);" onclick="purchaseCourse(499, 'Career Accelerator')">Enroll Now - $499</button>
+                            <div style="text-align: center; margin-top: 0.5rem; font-size: 0.9rem; color: #666;">
+                                ⭐⭐ Most Popular - Best Value
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- $999 Tier -->
+                    <div class="course-card premium" style="border: 3px solid #9b59b6; position: relative;">
+                        <div style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #9b59b6; color: white; padding: 0.5rem 1.5rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">
+                            ELITE
+                        </div>
+                        <div class="course-header premium" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                            <h3>Career Transformation</h3>
+                            <span class="course-type" style="background: rgba(255,255,255,0.3);">$999</span>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span>⏱️ 120+ hours</span>
+                                <span>📊 Advanced to Expert</span>
+                            </div>
+                            <p>Complete career transformation with executive coaching and guaranteed placement support.</p>
+                            <ul class="course-features">
+                                <li>Executive career coaching</li>
+                                <li>Guaranteed job placement*</li>
+                                <li>Personalized learning path</li>
+                                <li>Unlimited mock interviews</li>
+                                <li>Salary negotiation coaching</li>
+                                <li>Industry mentor matching</li>
+                                <li>Executive certificate</li>
+                                <li>Lifetime career support</li>
+                                <li>Networking events access</li>
+                            </ul>
+                            <div class="price premium">$999</div>
+                            <div class="course-savings" style="text-align: center; color: var(--success-color); font-weight: 600; margin: 0.5rem 0;">
+                                Save 65% vs à la carte services
+                            </div>
+                            <button class="btn btn-premium" style="width: 100%; background: linear-gradient(135deg, #9b59b6, #8e44ad);" onclick="purchaseCourse(999, 'Career Transformation')">Transform Career - $999</button>
+                            <div style="text-align: center; margin-top: 0.5rem; font-size: 0.9rem; color: #666;">
+                                ⭐⭐⭐ Executive Level
+                            </div>
+                            <div style="text-align: center; margin-top: 0.5rem; font-size: 0.8rem; color: #999;">
+                                *90-day placement guarantee
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Premium Courses -->
+                <h3 style="margin: 3rem 0 1.5rem; color: var(--secondary-color);">Specialized Career Tracks</h3>
+                <div class="course-grid">
+                    <div class="course-card premium">
+                        <div class="course-header premium">
+                            <h3>Tech Career FastTrack</h3>
+                            <span class="course-type">$199</span>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span>⏱️ 60 hours</span>
+                                <span>📊 All Levels</span>
+                            </div>
+                            <p>Become job-ready in technology with hands-on projects and industry tools.</p>
+                            <ul class="course-features">
+                                <li>Full-stack development</li>
+                                <li>Cloud computing basics</li>
+                                <li>Agile methodology</li>
+                                <li>Git & GitHub mastery</li>
+                                <li>4 real-world projects</li>
+                                <li>Technical interview prep</li>
+                            </ul>
+                            <div class="price premium">$199</div>
+                            <button class="btn btn-premium" style="width: 100%;" onclick="purchaseCourse(199, 'Tech Career FastTrack')">Start Tech Journey</button>
+                        </div>
+                    </div>
+
+                    <div class="course-card premium">
+                        <div class="course-header premium">
+                            <h3>Data Science Pro</h3>
+                            <span class="course-type">$499</span>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span>⏱️ 100 hours</span>
+                                <span>📊 Intermediate</span>
+                            </div>
+                            <p>Master data science with Python, ML, and real-world data analysis projects.</p>
+                            <ul class="course-features">
+                                <li>Python & R programming</li>
+                                <li>Machine learning algorithms</li>
+                                <li>Data visualization</li>
+                                <li>SQL & database management</li>
+                                <li>6 capstone projects</li>
+                                <li>1-on-1 mentorship</li>
+                                <li>Portfolio review</li>
+                            </ul>
+                            <div class="price premium">$499</div>
+                            <button class="btn btn-premium" style="width: 100%;" onclick="purchaseCourse(499, 'Data Science Pro')">Become Data Pro</button>
+                        </div>
+                    </div>
+
+                    <div class="course-card premium">
+                        <div class="course-header premium">
+                            <h3>Executive Leadership</h3>
+                            <span class="course-type">$999</span>
+                        </div>
+                        <div class="course-content">
+                            <div class="course-meta">
+                                <span>⏱️ 150 hours</span>
+                                <span>📊 Executive</span>
+                            </div>
+                            <p>Develop C-level leadership skills and strategic business acumen.</p>
+                            <ul class="course-features">
+                                <li>Strategic planning</li>
+                                <li>Financial acumen</li>
+                                <li>Executive presence</li>
+                                <li>Board presentation skills</li>
+                                <li>Executive coach</li>
+                                <li>Networking with leaders</li>
+                                <li>Personal brand building</li>
+                            </ul>
+                            <div class="price premium">$999</div>
+                            <button class="btn btn-premium" style="width: 100%;" onclick="purchaseCourse(999, 'Executive Leadership')">Lead at Executive Level</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Career Placement Section -->
+            <section id="placement-section" class="tab-content" style="display: none;">
+                <div class="placement-section">
+                    <div class="placement-content">
+                        <h2>Career Placement Program</h2>
+                        <p>Get placed in your dream job with our comprehensive placement assistance program</p>
+                        
+                        <div class="placement-stats">
+                            <div class="placement-stat">
+                                <div class="placement-number">92%</div>
+                                <div class="placement-label">Placement Rate</div>
+                            </div>
+                            <div class="placement-stat">
+                                <div class="placement-number">300+</div>
+                                <div class="placement-label">Partner Companies</div>
+                            </div>
+                            <div class="placement-stat">
+                                <div class="placement-number">$85K</div>
+                                <div class="placement-label">Average Salary</div>
+                            </div>
+                            <div class="placement-stat">
+                                <div class="placement-number">45 days</div>
+                                <div class="placement-label">Average Placement Time</div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-premium" onclick="joinPlacementProgram()">Join Placement Program</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- User Progress Section -->
+            <div class="progress-section">
+                <div class="progress-header">
+                    <h2 style="color: var(--secondary-color);">Your Learning Progress</h2>
+                    <a href="dashboard.html" class="btn btn-outline">View Full Dashboard</a>
+                </div>
+                
+                <div class="progress-stats">
+                    <div class="progress-stat">
+                        <div class="progress-number" id="completedAssessments">0</div>
+                        <div class="progress-label">Assessments Completed</div>
+                        
+                    </div>
+                    <div class="progress-stat">
+                        <div class="progress-number" id="coursesInProgress">0</div>
+                        <div class="progress-label">Courses in Progress</div>
+                    </div>
+                    <div class="progress-stat">
+                        <div class="progress-number" id="skillsMastered">0</div>
+                        <div class="progress-label">Skills Mastered</div>
+                    </div>
+                    <div class="progress-stat">
+                        <div class="progress-number" id="overallProgress">0%</div>
+                        <div class="progress-label">Overall Progress</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">CareerGuide</div>
+                <p class="copyright">© 2024 CareerGuide. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation Manager
+        const NavigationManager = {
+            init: function() {
+                this.setupNavigation();
+                this.setupProtectedLinks();
+                this.setupMobileMenu();
+                this.setupTabs();
+            },
+
+            setupNavigation: function() {
+                const navLinks = document.getElementById('navLinks');
+                const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                const currentUser = isLoggedIn ? JSON.parse(localStorage.getItem('currentUser')) : null;
+                const currentPage = 'assessments.html';
+
+                const navigationItems = [
+                    { href: 'index.html', text: 'Home', requiresAuth: false },
+                    { href: 'assessments.html', text: 'Assessments', requiresAuth: ture },
+                    { href: 'career-paths.html', text: 'Career Paths', requiresAuth: true },
+                    { href: 'resources.html', text: 'Resources', requiresAuth: true },
+                    { href: 'counseling.html', text: 'Counseling', requiresAuth: true }
+                ];
+
+                let navHTML = '';
+
+                navigationItems.forEach(item => {
+                    const isActive = currentPage === item.href;
+                    const activeClass = isActive ? 'active' : '';
+                    
+                    if (item.requiresAuth && !isLoggedIn) {
+                        navHTML += `
+                            <li>
+                                <a href="#" class="protected-link ${activeClass}" data-page="${item.href}">
+                                    ${item.text}
+                                </a>
+                            </li>
+                        `;
+                    } else {
+                        navHTML += `
+                            <li>
+                                <a href="${item.href}" class="${activeClass}">
+                                    ${item.text}
+                                </a>
+                            </li>
+                        `;
+                    }
+                });
+
+                // Add login/logout button
+                if (isLoggedIn && currentUser) {
+                    navHTML += `
+                        <li>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <a href="dashboard.html" class="btn" style="font-size: 0.9rem;">
+                                    👤 Dashboard
+                                </a>
+                                <a href="#" id="logoutBtn" class="btn btn-outline" style="font-size: 0.9px;">Logout</a>
+                            </div>
+                        </li>
+                    `;
+                } else {
+                    navHTML += `
+                        <li>
+                            <a href="login.html" class="btn">Login</a>
+                        </li>
+                    `;
+                }
+
+                navLinks.innerHTML = navHTML;
+
+                // Setup logout functionality
+                const logoutBtn = document.getElementById('logoutBtn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        localStorage.removeItem('isLoggedIn');
+                        localStorage.removeItem('currentUser');
+                        window.location.href = 'index.html';
+                    });
+                }
+            },
+
+            setupProtectedLinks: function() {
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('protected-link')) {
+                        e.preventDefault();
+                        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                        
+                        if (!isLoggedIn) {
+                            document.getElementById('loginModal').style.display = 'flex';
+                        } else {
+                            const targetPage = e.target.getAttribute('data-page');
+                            window.location.href = targetPage;
+                        }
+                    }
+                });
+
+                // Close modal when clicking outside
+                document.getElementById('loginModal').addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.style.display = 'none';
+                    }
+                });
+            },
+
+            setupMobileMenu: function() {
+                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+                const navLinks = document.querySelector('.nav-links');
+
+                if (mobileMenuBtn && navLinks) {
+                    mobileMenuBtn.addEventListener('click', function() {
+                        navLinks.classList.toggle('active');
+                    });
+
+                    // Close mobile menu when clicking on a link
+                    navLinks.addEventListener('click', function(e) {
+                        if (e.target.tagName === 'A') {
+                            navLinks.classList.remove('active');
+                        }
+                    });
+                }
+            },
+
+            setupTabs: function() {
+                const tabs = document.querySelectorAll('.tab');
+                const tabContents = document.querySelectorAll('.tab-content');
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        const targetTab = this.getAttribute('data-tab');
+                        
+                        // Update active tab
+                        tabs.forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Show target content
+                        tabContents.forEach(content => {
+                            content.style.display = 'none';
+                            if (content.id === `${targetTab}-section`) {
+                                content.style.display = 'block';
+                            }
+                        });
+                    });
+                });
+            }
+        };
+
+        // Free Assessment Functions
+        function startFreeAssessment(type) {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            
+            if (!isLoggedIn) {
+                document.getElementById('loginModal').style.display = 'flex';
+                return;
+            }
+
+            const assessmentNames = {
+                'interest': 'Career Interest Assessment',
+                'skills': 'Skills Gap Analysis',
+                'personality': 'Personality & Work Style Assessment'
+            };
+
+            document.getElementById('successMessage').textContent = `🎉 Starting ${assessmentNames[type]}... Redirecting to assessment portal.`;
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Simulate redirect
+            setTimeout(() => {
+                alert(`Starting ${assessmentNames[type]}... This would redirect to the actual assessment.`);
+            }, 1000);
+        }
+
+        function enrollFreeCourse(course) {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            
+            if (!isLoggedIn) {
+                document.getElementById('loginModal').style.display = 'flex';
+                return;
+            }
+
+            const courseNames = {
+                'resume': 'Resume Building Basics',
+                'interview': 'Interview Preparation',
+                'linkedin': 'LinkedIn Profile Optimization'
+            };
+
+            document.getElementById('successMessage').textContent = `🎉 Successfully enrolled in ${courseNames[course]}! Redirecting to course...`;
+            document.getElementById('successMessage').style.display = 'block';
+            
+            setTimeout(() => {
+                alert(`Enrolled in ${courseNames[course]}! This would redirect to the course content.`);
+            }, 1500);
+        }
+
+        // Premium Course Purchase
+        function purchaseCourse(price, courseName) {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            
+            if (!isLoggedIn) {
+                document.getElementById('loginModal').style.display = 'flex';
+                return;
+            }
+
+            // Show purchase confirmation
+            document.getElementById('purchaseMessage').textContent = `You have successfully enrolled in ${courseName} for $${price}. Check your email for confirmation and access details.`;
+            document.getElementById('purchaseModal').style.display = 'flex';
+
+            // Update user progress
+            updateUserProgress();
+        }
+
+        function closePurchaseModal() {
+            document.getElementById('purchaseModal').style.display = 'none';
+        }
+
+        // Placement Program
+        function joinPlacementProgram() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            
+            if (!isLoggedIn) {
+                document.getElementById('loginModal').style.display = 'flex';
+                return;
+            }
+
+            alert('🎯 Career Placement Program: Our team will contact you within 24 hours to discuss your career goals and placement opportunities!');
+        }
+
+        // Update user progress
+        function updateUserProgress() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            
+            if (isLoggedIn) {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                let userProgress = JSON.parse(localStorage.getItem(`userProgress_${currentUser.email}`) || '{}');
+                
+                // Initialize progress if not exists
+                if (!userProgress.assessments) {
+                    userProgress = {
+                        assessments: { completed: 0, total: 3 },
+                        courses: { enrolled: 0, completed: 0 },
+                        skills: { mastered: 0 },
+                        overallProgress: 0
+                    };
+                }
+                
+                document.getElementById('completedAssessments').textContent = userProgress.assessments.completed || 0;
+                document.getElementById('coursesInProgress').textContent = userProgress.courses.enrolled || 0;
+                document.getElementById('skillsMastered').textContent = userProgress.skills.mastered || 0;
+                document.getElementById('overallProgress').textContent = userProgress.overallProgress + '%' || '0%';
+                
+                // Save updated progress
+                localStorage.setItem(`userProgress_${currentUser.email}`, JSON.stringify(userProgress));
+            } else {
+                // Show default values for non-logged in users
+                document.getElementById('completedAssessments').textContent = '0';
+                document.getElementById('coursesInProgress').textContent = '0';
+                document.getElementById('skillsMastered').textContent = '0';
+                document.getElementById('overallProgress').textContent = '0%';
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            NavigationManager.init();
+            updateUserProgress();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Preparation - Career Guide</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #dc2626;
+            --success-color: #059669;
+            --warning-color: #d97706;
+            --info-color: #0891b2;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --text-color: #334155;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --premium-gold: #f59e0b;
+            --premium-gradient: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: var(--dark-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Main Layout */
+        .interview-prep {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            min-height: 80vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+
+        .nav-section h3 {
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .nav-item:hover {
+            background: var(--light-color);
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .nav-item.premium {
+            background: var(--premium-gradient);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item.premium::after {
+            content: 'PREMIUM';
+            position: absolute;
+            top: -5px;
+            right: -25px;
+            background: var(--accent-color);
+            color: white;
+            padding: 2px 25px;
+            font-size: 0.7rem;
+            transform: rotate(45deg);
+        }
+
+        /* Main Content */
+        .content-area {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            min-height: 600px;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Practice Interface */
+        .practice-interface {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .question-display {
+            background: var(--light-color);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .question-timer {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin: 1rem 0;
+        }
+
+        .response-area {
+            margin: 2rem 0;
+        }
+
+        .response-input {
+            width: 100%;
+            min-height: 150px;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 1rem;
+        }
+
+        .response-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        /* AI Feedback */
+        .ai-feedback {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .ai-feedback.show {
+            display: block;
+        }
+
+        .feedback-section {
+            margin: 1rem 0;
+        }
+
+        .feedback-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .rating-star {
+            color: #d1d5db;
+            font-size: 1.2rem;
+        }
+
+        .rating-star.filled {
+            color: var(--warning-color);
+        }
+
+        /* Question Bank */
+        .question-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .category-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .category-card.premium {
+            border-color: var(--premium-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card.premium::before {
+            content: 'PREMIUM';
+            position: absolute;
+            top: 10px;
+            right: -25px;
+            background: var(--premium-gold);
+            color: white;
+            padding: 2px 25px;
+            font-size: 0.7rem;
+            transform: rotate(45deg);
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            border: 2px solid var(--premium-gold);
+        }
+
+        .premium-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-card {
+            background: var(--light-color);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .pricing-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--premium-gold);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--dark-color);
+            margin: 1rem 0;
+        }
+
+        .price-period {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .upi-payment {
+            background: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .upi-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .upi-option {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upi-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .upi-option.active {
+            border-color: var(--primary-color);
+            background: var(--light-color);
+        }
+
+        /* Buttons */
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-premium {
+            background: var(--premium-gradient);
+            color: white;
+        }
+
+        .btn-premium:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        /* Progress Tracking */
+        .progress-section {
+            background: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success-color);
+            transition: width 0.3s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .interview-prep {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+            
+            .pricing-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card.featured {
+                transform: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .premium-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>AI Interview Preparation</h1>
+            <p>Practice with AI, Get Instant Feedback, and Ace Your Interviews</p>
+        </header>
+
+        <div class="interview-prep">
+            <!-- Sidebar Navigation -->
+            <div class="sidebar">
+                <div class="nav-section">
+                    <h3>🎯 Free Practice</h3>
+                    <div class="nav-item active" data-section="practice">
+                        🎤 Practice Interview
+                    </div>
+                    <div class="nav-item" data-section="questions">
+                        📚 Question Bank
+                    </div>
+                    <div class="nav-item" data-section="tips">
+                        💡 Interview Tips
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <h3>⭐ Premium Features</h3>
+                    <div class="nav-item premium" data-section="mock-interviews">
+                        🎭 Mock Interviews
+                    </div>
+                    <div class="nav-item premium" data-section="ai-analysis">
+                        🤖 AI Performance Analysis
+                    </div>
+                    <div class="nav-item premium" data-section="industry-specific">
+                        🏢 Industry Specific
+                    </div>
+                    <div class="nav-item premium" data-section="video-practice">
+                        🎥 Video Practice
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <h3>📊 Progress</h3>
+                    <div class="progress-section">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Practice Progress</span>
+                            <span id="progressPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                        <p style="text-align: center; margin-top: 0.5rem; font-size: 0.9rem;">
+                            <span id="questionsCompleted">0</span> of 50 questions practiced
+                        </p>
+                    </div>
+                </div>
+
+                <button class="btn btn-premium btn-block" onclick="showPaymentSection()">
+                    🔓 Unlock Premium - ₹299
+                </button>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="content-area">
+                <!-- Practice Interview Section -->
+                <div id="practice" class="content-section active">
+                    <h2>🎤 Practice Interview Session</h2>
+                    <p>Practice common interview questions with AI-powered feedback</p>
+                    
+                    <div class="practice-interface">
+                        <div class="question-display">
+                            <div class="question-text" id="currentQuestion">
+                                Welcome to your interview practice session! Click "Start Practice" to begin.
+                            </div>
+                            <div class="question-timer" id="timer">02:00</div>
+                            <div class="question-info">
+                                <span id="questionCategory">General</span> • 
+                                <span id="difficultyLevel">Medium</span>
+                            </div>
+                        </div>
+
+                        <div class="response-area">
+                            <textarea class="response-input" id="responseInput" 
+                                      placeholder="Type your answer here... (You have 2 minutes)"></textarea>
+                            
+                            <div class="action-buttons">
+                                <button class="btn btn-outline" onclick="skipQuestion()">Skip Question</button>
+                                <button class="btn" onclick="submitAnswer()" id="submitBtn">Submit Answer</button>
+                                <button class="btn btn-success" onclick="startPractice()" id="startBtn">Start Practice</button>
+                                <button class="btn btn-premium" onclick="upgradeForAI()">🎯 Get AI Feedback (Premium)</button>
+                            </div>
+                        </div>
+
+                        <div class="ai-feedback" id="aiFeedback">
+                            <h3>🤖 AI Feedback</h3>
+                            <div class="feedback-section">
+                                <h4>Overall Rating</h4>
+                                <div class="feedback-rating" id="overallRating">
+                                    <!-- Stars will be added by JavaScript -->
+                                </div>
+                            </div>
+                            <div class="feedback-section">
+                                <h4>Strengths</h4>
+                                <ul id="strengthsList">
+                                    <!-- Strengths will be added by JavaScript -->
+                                </ul>
+                            </div>
+                            <div class="feedback-section">
+                                <h4>Areas for Improvement</h4>
+                                <ul id="improvementsList">
+                                    <!-- Improvements will be added by JavaScript -->
+                                </ul>
+                            </div>
+                            <div class="feedback-section">
+                                <h4>Suggested Answer</h4>
+                                <p id="suggestedAnswer"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Bank Section -->
+                <div id="questions" class="content-section">
+                    <h2>📚 Interview Question Bank</h2>
+                    <p>Browse questions by category and difficulty level</p>
+                    
+                    <div class="question-categories">
+                        <div class="category-card" data-category="behavioral">
+                            <h3>🤝 Behavioral</h3>
+                            <p>25 Questions</p>
+                            <p>Teamwork, Leadership, Conflict</p>
+                        </div>
+                        <div class="category-card" data-category="technical">
+                            <h3>💻 Technical</h3>
+                            <p>30 Questions</p>
+                            <p>Coding, Problem Solving</p>
+                        </div>
+                        <div class="category-card" data-category="situational">
+                            <h3>🎯 Situational</h3>
+                            <p>20 Questions</p>
+                            <p>What-if Scenarios</p>
+                        </div>
+                        <div class="category-card premium" data-category="industry">
+                            <h3>🏢 Industry Specific</h3>
+                            <p>50+ Questions</p>
+                            <p>Tech, Finance, Healthcare</p>
+                        </div>
+                        <div class="category-card premium" data-category="leadership">
+                            <h3>👑 Leadership</h3>
+                            <p>15 Questions</p>
+                            <p>Management Scenarios</p>
+                        </div>
+                    </div>
+
+                    <div class="questions-list" id="questionsList">
+                        <!-- Questions will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Interview Tips Section -->
+                <div id="tips" class="content-section">
+                    <h2>💡 Interview Tips & Strategies</h2>
+                    <div class="tips-container">
+                        <div class="tip-card">
+                            <h3>🎯 Preparation</h3>
+                            <ul>
+                                <li>Research the company and role thoroughly</li>
+                                <li>Practice common questions aloud</li>
+                                <li>Prepare questions to ask the interviewer</li>
+                                <li>Review your resume and experiences</li>
+                            </ul>
+                        </div>
+                        <div class="tip-card">
+                            <h3>💬 Communication</h3>
+                            <ul>
+                                <li>Use the STAR method for behavioral questions</li>
+                                <li>Be concise but thorough in answers</li>
+                                <li>Maintain positive body language</li>
+                                <li>Listen carefully before responding</li>
+                            </ul>
+                        </div>
+                        <div class="tip-card">
+                            <h3>🚀 During Interview</h3>
+                            <ul>
+                                <li>Arrive 10-15 minutes early</li>
+                                <li>Dress professionally</li>
+                                <li>Bring copies of your resume</li>
+                                <li>Stay calm and confident</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Section -->
+                <div id="payment" class="content-section">
+                    <h2>🔓 Unlock Premium Features</h2>
+                    <p>Get access to advanced interview preparation tools and AI-powered feedback</p>
+                    
+                    <div class="premium-features">
+                        <div class="feature-card">
+                            <h3>🤖 AI Feedback</h3>
+                            <p>Detailed analysis of your answers</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>🎭 Mock Interviews</h3>
+                            <p>Full simulated interviews</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>🏢 Industry Specific</h3>
+                            <p>Questions tailored to your field</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>📊 Performance Analytics</h3>
+                            <p>Track your improvement over time</p>
+                        </div>
+                    </div>
+
+                    <div class="pricing-options">
+                        <div class="pricing-card">
+                            <h3>1 Month</h3>
+                            <div class="price">₹299</div>
+                            <div class="price-period">per month</div>
+                            <ul style="text-align: left; margin: 1rem 0;">
+                                <li>All Premium Features</li>
+                                <li>AI Feedback on Answers</li>
+                                <li>Unlimited Mock Interviews</li>
+                                <li>Priority Support</li>
+                            </ul>
+                            <button class="btn btn-premium" onclick="selectPlan('monthly')">Select Plan</button>
+                        </div>
+                        
+                        <div class="pricing-card featured">
+                            <h3>3 Months</h3>
+                            <div class="price">₹699</div>
+                            <div class="price-period">Save ₹198</div>
+                            <ul style="text-align: left; margin: 1rem 0;">
+                                <li>Everything in 1 Month</li>
+                                <li>Progress Tracking</li>
+                                <li>Custom Question Sets</li>
+                                <li>Certificate of Completion</li>
+                            </ul>
+                            <button class="btn btn-premium" onclick="selectPlan('quarterly')">Best Value</button>
+                        </div>
+                        
+                        <div class="pricing-card">
+                            <h3>6 Months</h3>
+                            <div class="price">₹1199</div>
+                            <div class="price-period">Save ₹595</div>
+                            <ul style="text-align: left; margin: 1rem 0;">
+                                <li>Everything in 3 Months</li>
+                                <li>Career Coaching Session</li>
+                                <li>Resume Review</li>
+                                <li>Job Application Support</li>
+                            </ul>
+                            <button class="btn btn-premium" onclick="selectPlan('semiannual')">Select Plan</button>
+                        </div>
+                    </div>
+
+                    <div class="upi-payment" id="upiSection" style="display: none;">
+                        <h3>💳 Pay with UPI</h3>
+                        <p>Complete your payment using any UPI app</p>
+                        
+                        <div class="upi-options">
+                            <div class="upi-option active" data-upi="phonepe">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3C/svg%3E" alt="PhonePe" style="width: 40px; height: 40px;">
+                                <div>PhonePe</div>
+                            </div>
+                            <div class="upi-option" data-upi="gpay">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3C/svg%3E" alt="GPay" style="width: 40px; height: 40px;">
+                                <div>Google Pay</div>
+                            </div>
+                            <div class="upi-option" data-upi="paytm">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3C/svg%3E" alt="Paytm" style="width: 40px; height: 40px;">
+                                <div>Paytm</div>
+                            </div>
+                            <div class="upi-option" data-upi="other">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3C/svg%3E" alt="Other UPI" style="width: 40px; height: 40px;">
+                                <div>Other UPI</div>
+                            </div>
+                        </div>
+
+                        <div class="payment-details">
+                            <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                <h4>Payment Details</h4>
+                                <p><strong>Amount:</strong> <span id="paymentAmount">₹299</span></p>
+                                <p><strong>UPI ID:</strong> careerguide@axisbank</p>
+                                <p><strong>Merchant:</strong> Career Guide Pro</p>
+                            </div>
+                            
+                            <button class="btn btn-success btn-block" onclick="processUPIPayment()">
+                                Pay Now with UPI
+                            </button>
+                            
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 1rem;">
+                                You will be redirected to your UPI app to complete the payment
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mock Interviews Section (Premium) -->
+                <div id="mock-interviews" class="content-section">
+                    <div class="payment-section">
+                        <h3>🔒 Premium Feature Locked</h3>
+                        <p>Unlock premium to access full mock interviews with AI interviewers</p>
+                        <button class="btn btn-premium" onclick="showPaymentSection()">Unlock for ₹299</button>
+                    </div>
+                </div>
+
+                <!-- AI Analysis Section (Premium) -->
+                <div id="ai-analysis" class="content-section">
+                    <div class="payment-section">
+                        <h3>🔒 Premium Feature Locked</h3>
+                        <p>Get detailed AI analysis of your interview performance and improvement suggestions</p>
+                        <button class="btn btn-premium" onclick="showPaymentSection()">Unlock for ₹299</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Interview Data
+        const interviewData = {
+            userProgress: {
+                questionsCompleted: 0,
+                totalQuestions: 50,
+                averageRating: 0,
+                premium: false
+            },
+            currentSession: {
+                active: false,
+                currentQuestion: null,
+                timer: null,
+                timeLeft: 120
+            },
+            questions: {
+                behavioral: [
+                    {
+                        question: "Tell me about a time you had to work under pressure. How did you handle it?",
+                        category: "behavioral",
+                        difficulty: "medium",
+                        tips: ["Use STAR method", "Focus on your actions", "Show positive outcome"]
+                    },
+                    {
+                        question: "Describe a situation where you had to resolve a conflict within your team.",
+                        category: "behavioral", 
+                        difficulty: "medium",
+                        tips: ["Show empathy", "Focus on collaboration", "Highlight resolution"]
+                    }
+                ],
+                technical: [
+                    {
+                        question: "Explain a complex technical concept to someone non-technical.",
+                        category: "technical",
+                        difficulty: "hard",
+                        tips: ["Use analogies", "Keep it simple", "Check for understanding"]
+                    }
+                ],
+                situational: [
+                    {
+                        question: "What would you do if you disagreed with your manager's decision?",
+                        category: "situational",
+                        difficulty: "medium", 
+                        tips: ["Show respect", "Provide data", "Suggest alternatives"]
+                    }
+                ]
+            },
+            premiumQuestions: {
+                industry: [
+                    "How would you approach [industry-specific problem]?",
+                    "What trends in our industry are you following?",
+                    "How do you stay updated with industry changes?"
+                ],
+                leadership: [
+                    "Describe your leadership style and give an example.",
+                    "How do you motivate team members during challenging projects?",
+                    "Tell me about a time you had to make a difficult decision as a leader."
+                ]
+            }
+        };
+
+        // Initialize the interview prep
+        function initializeInterviewPrep() {
+            setupEventListeners();
+            loadUserProgress();
+            updateProgressDisplay();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all nav items
+                    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    const section = this.dataset.section;
+                    showSection(section);
+                });
+            });
+
+            // Category cards
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    if (this.classList.contains('premium') && !interviewData.userProgress.premium) {
+                        showPaymentSection();
+                        return;
+                    }
+                    loadQuestionsByCategory(category);
+                });
+            });
+
+            // UPI options
+            document.querySelectorAll('.upi-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.upi-option').forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        }
+
+        // Show specific section
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+
+            // Handle premium sections
+            if (sectionName.includes('premium') && !interviewData.userProgress.premium) {
+                showPaymentSection();
+            }
+        }
+
+        // Start practice session
+        function startPractice() {
+            interviewData.currentSession.active = true;
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'block';
+            
+            // Get random question
+            const allQuestions = [...interviewData.questions.behavioral, ...interviewData.questions.technical, ...interviewData.questions.situational];
+            const randomQuestion = allQuestions[Math.floor(Math.random() * allQuestions.length)];
+            
+            interviewData.currentSession.currentQuestion = randomQuestion;
+            document.getElementById('currentQuestion').textContent = randomQuestion.question;
+            document.getElementById('questionCategory').textContent = randomQuestion.category;
+            document.getElementById('difficultyLevel').textContent = randomQuestion.difficulty;
+            
+            // Start timer
+            startTimer();
+        }
+
+        // Start countdown timer
+        function startTimer() {
+            interviewData.currentSession.timeLeft = 120;
+            updateTimerDisplay();
+            
+            interviewData.currentSession.timer = setInterval(() => {
+                interviewData.currentSession.timeLeft--;
+                updateTimerDisplay();
+                
+                if (interviewData.currentSession.timeLeft <= 0) {
+                    clearInterval(interviewData.currentSession.timer);
+                    submitAnswer();
+                }
+            }, 1000);
+        }
+
+        // Update timer display
+        function updateTimerDisplay() {
+            const minutes = Math.floor(interviewData.currentSession.timeLeft / 60);
+            const seconds = interviewData.currentSession.timeLeft % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Change color when time is running out
+            if (interviewData.currentSession.timeLeft < 30) {
+                document.getElementById('timer').style.color = 'var(--accent-color)';
+            }
+        }
+
+        // Submit answer
+        function submitAnswer() {
+            if (interviewData.currentSession.timer) {
+                clearInterval(interviewData.currentSession.timer);
+            }
+            
+            const userAnswer = document.getElementById('responseInput').value;
+            if (!userAnswer.trim()) {
+                alert('Please provide an answer before submitting.');
+                return;
+            }
+            
+            // Update progress
+            interviewData.userProgress.questionsCompleted++;
+            updateProgressDisplay();
+            
+            // Show AI feedback if premium
+            if (interviewData.userProgress.premium) {
+                showAIFeedback(userAnswer);
+            } else {
+                alert('Answer submitted! Upgrade to premium for AI feedback and detailed analysis.');
+                document.getElementById('responseInput').value = '';
+                startPractice(); // Start next question
+            }
+        }
+
+        // Skip question
+        function skipQuestion() {
+            if (interviewData.currentSession.timer) {
+                clearInterval(interviewData.currentSession.timer);
+            }
+            startPractice();
+        }
+
+        // Show AI feedback
+        function showAIFeedback(userAnswer) {
+            const feedback = generateAIFeedback(userAnswer);
+            const feedbackElement = document.getElementById('aiFeedback');
+            
+            // Update feedback content
+            document.getElementById('overallRating').innerHTML = generateStarRating(feedback.rating);
+            document.getElementById('strengthsList').innerHTML = 
+                feedback.strengths.map(strength => `<li>${strength}</li>`).join('');
+            document.getElementById('improvementsList').innerHTML = 
+                feedback.improvements.map(improvement => `<li>${improvement}</li>`).join('');
+            document.getElementById('suggestedAnswer').textContent = feedback.suggestedAnswer;
+            
+            feedbackElement.classList.add('show');
+        }
+
+        // Generate AI feedback (simulated)
+        function generateAIFeedback(answer) {
+            // In real implementation, this would call an AI API
+            return {
+                rating: 3.5,
+                strengths: [
+                    "Good structure in your answer",
+                    "Relevant examples provided",
+                    "Clear communication"
+                ],
+                improvements: [
+                    "Could provide more specific details",
+                    "Try to quantify your achievements",
+                    "Consider adding more industry context"
+                ],
+                suggestedAnswer: "A more comprehensive answer would include specific metrics and outcomes. For example: 'In my previous role, I implemented a new system that improved efficiency by 25% and reduced errors by 40% through careful planning and team collaboration.'"
+            };
+        }
+
+        // Generate star rating
+        function generateStarRating(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.floor(rating)) {
+                    stars += '<span class="rating-star filled">★</span>';
+                } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
+                    stars += '<span class="rating-star filled">★</span>';
+                } else {
+                    stars += '<span class="rating-star">★</span>';
+                }
+            }
+            return stars;
+        }
+
+        // Update progress display
+        function updateProgressDisplay() {
+            const progress = (interviewData.userProgress.questionsCompleted / interviewData.userProgress.totalQuestions) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            document.getElementById('progressPercent').textContent = `${Math.round(progress)}%`;
+            document.getElementById('questionsCompleted').textContent = interviewData.userProgress.questionsCompleted;
+        }
+
+        // Load user progress from localStorage
+        function loadUserProgress() {
+            const saved = localStorage.getItem('interviewProgress');
+            if (saved) {
+                interviewData.userProgress = { ...interviewData.userProgress, ...JSON.parse(saved) };
+            }
+        }
+
+        // Save user progress to localStorage
+        function saveUserProgress() {
+            localStorage.setItem('interviewProgress', JSON.stringify(interviewData.userProgress));
+        }
+
+        // Show payment section
+        function showPaymentSection() {
+            showSection('payment');
+        }
+
+        // Select payment plan
+        function selectPlan(plan) {
+            const plans = {
+                monthly: 299,
+                quarterly: 699,
+                semiannual: 1199
+            };
+            
+            document.getElementById('paymentAmount').textContent = `₹${plans[plan]}`;
+            document.getElementById('upiSection').style.display = 'block';
+            
+            // Scroll to UPI section
+            document.getElementById('upiSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Process UPI payment
+        function processUPIPayment() {
+            const selectedUPI = document.querySelector('.upi-option.active').dataset.upi;
+            const amount = document.getElementById('paymentAmount').textContent;
+            
+            // Simulate payment processing
+            alert(`Redirecting to ${selectedUPI.toUpperCase()} for payment of ${amount}...`);
+            
+            // Simulate successful payment
+            setTimeout(() => {
+                interviewData.userProgress.premium = true;
+                saveUserProgress();
+                alert('🎉 Payment Successful! Premium features unlocked.');
+                showSection('practice');
+            }, 2000);
+        }
+
+        // Upgrade for AI feedback
+        function upgradeForAI() {
+            showPaymentSection();
+        }
+
+        // Load questions by category
+        function loadQuestionsByCategory(category) {
+            const container = document.getElementById('questionsList');
+            let questions = [];
+            
+            if (category === 'behavioral') {
+                questions = interviewData.questions.behavioral;
+            } else if (category === 'technical') {
+                questions = interviewData.questions.technical;
+            } else if (category === 'situational') {
+                questions = interviewData.questions.situational;
+            } else if (category === 'industry' && interviewData.userProgress.premium) {
+                questions = interviewData.premiumQuestions.industry.map(q => ({ question: q, category: 'industry', difficulty: 'varies' }));
+            } else if (category === 'leadership' && interviewData.userProgress.premium) {
+                questions = interviewData.premiumQuestions.leadership.map(q => ({ question: q, category: 'leadership', difficulty: 'hard' }));
+            }
+            
+            container.innerHTML = questions.map((q, index) => `
+                <div class="dynamic-item" style="margin: 1rem 0; padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                    <h4>Q${index + 1}: ${q.question}</h4>
+                    <p><strong>Category:</strong> ${q.category} • <strong>Difficulty:</strong> ${q.difficulty}</p>
+                    ${q.tips ? `<p><strong>Tips:</strong> ${q.tips.join(', ')}</p>` : ''}
+                    <button class="btn btn-outline" onclick="practiceThisQuestion('${q.question}')" style="margin-top: 0.5rem;">Practice This</button>
+                </div>
+            `).join('');
+        }
+
+        // Practice specific question
+        function practiceThisQuestion(question) {
+            showSection('practice');
+            document.getElementById('currentQuestion').textContent = question;
+            document.getElementById('responseInput').value = '';
+            document.getElementById('aiFeedback').classList.remove('show');
+            
+            interviewData.currentSession.active = true;
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'block';
+            
+            startTimer();
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeInterviewPrep);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources Management - Career Guide</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #dc2626;
+            --success-color: #059669;
+            --warning-color: #d97706;
+            --info-color: #0891b2;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --text-color: #334155;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --premium-gold: #f59e0b;
+            --premium-gradient: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: var(--dark-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Main Layout */
+        .resources-management {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            min-height: 80vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+
+        .nav-section h3 {
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .nav-item:hover {
+            background: var(--light-color);
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .nav-item.premium {
+            background: var(--premium-gradient);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item.premium::after {
+            content: 'PREMIUM';
+            position: absolute;
+            top: -5px;
+            right: -25px;
+            background: var(--accent-color);
+            color: white;
+            padding: 2px 25px;
+            font-size: 0.7rem;
+            transform: rotate(45deg);
+        }
+
+        /* Main Content */
+        .content-area {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            min-height: 600px;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Dashboard Overview */
+        .dashboard-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        /* Resource Grid */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid var(--border-color);
+            position: relative;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .resource-card.premium {
+            border-color: var(--premium-gold);
+        }
+
+        .resource-card.premium::before {
+            content: 'PREMIUM';
+            position: absolute;
+            top: 10px;
+            right: -25px;
+            background: var(--premium-gold);
+            color: white;
+            padding: 2px 25px;
+            font-size: 0.7rem;
+            transform: rotate(45deg);
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .resource-title {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .resource-description {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            min-height: 60px;
+        }
+
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-color);
+        }
+
+        .resource-type {
+            background: var(--light-color);
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .resource-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Progress Tracking */
+        .progress-section {
+            background: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .progress-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+            flex: 1;
+            margin: 0 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success-color);
+            transition: width 0.3s ease;
+        }
+
+        /* Learning Path */
+        .learning-path {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .path-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: var(--light-color);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .path-status {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: white;
+        }
+
+        .path-status.completed {
+            background: var(--success-color);
+        }
+
+        .path-status.current {
+            background: var(--primary-color);
+        }
+
+        /* Saved Items */
+        .saved-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .saved-item {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border-color);
+            position: relative;
+        }
+
+        .saved-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .saved-date {
+            font-size: 0.8rem;
+            color: var(--text-color);
+        }
+
+        /* Buttons */
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-premium {
+            background: var(--premium-gradient);
+            color: white;
+        }
+
+        .btn-premium:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        .btn-danger {
+            background: var(--accent-color);
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        /* Search and Filter */
+        .search-filter {
+            background: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .resources-management {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+            
+            .resources-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .dashboard-overview {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .resource-actions {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .filter-options {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Resources Management Center</h1>
+            <p>Organize, track, and optimize your career development resources</p>
+        </header>
+
+        <div class="resources-management">
+            <!-- Sidebar Navigation -->
+            <div class="sidebar">
+                <div class="nav-section">
+                    <h3>📊 Overview</h3>
+                    <div class="nav-item active" data-section="dashboard">
+                        🏠 Dashboard
+                    </div>
+                    <div class="nav-item" data-section="my-resources">
+                        📚 My Resources
+                    </div>
+                    <div class="nav-item" data-section="saved-items">
+                        ⭐ Saved Items
+                    </div>
+                    <div class="nav-item" data-section="progress">
+                        📈 Progress Tracking
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <h3>🔧 Career Tools</h3>
+                    <div class="nav-item" data-section="resume-builder">
+                        📝 Resume Builder
+                    </div>
+                    <div class="nav-item" data-section="interview-prep">
+                        🎤 Interview Prep
+                    </div>
+                    <div class="nav-item" data-section="skills-assessment">
+                        🎯 Skills Assessment
+                    </div>
+                    <div class="nav-item" data-section="career-paths">
+                        🗺️ Career Paths
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <h3>📚 Learning</h3>
+                    <div class="nav-item" data-section="books">
+                        📖 Books & Guides
+                    </div>
+                    <div class="nav-item premium" data-section="courses">
+                        🎓 Online Courses
+                    </div>
+                    <div class="nav-item premium" data-section="certifications">
+                        🏆 Certifications
+                    </div>
+                    <div class="nav-item" data-section="learning-path">
+                        🛣️ Learning Path
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <h3>⚙️ Management</h3>
+                    <div class="nav-item" data-section="export">
+                        📤 Export Data
+                    </div>
+                    <div class="nav-item" data-section="settings">
+                        ⚙️ Settings
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Overall Progress</span>
+                        <span id="overallProgressPercent">25%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="overallProgressFill" style="width: 25%"></div>
+                    </div>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.9rem;">
+                        <span id="completedResources">5</span> of 20 resources completed
+                    </p>
+                </div>
+
+                <button class="btn btn-premium btn-block" onclick="showPaymentSection()">
+                    🔓 Unlock Premium Resources
+                </button>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="content-area">
+                <!-- Dashboard Section -->
+                <div id="dashboard" class="content-section active">
+                    <h2>🏠 Resource Management Dashboard</h2>
+                    <p>Overview of your career development progress and resources</p>
+                    
+                    <div class="dashboard-overview">
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalResources">24</div>
+                            <div class="stat-label">Total Resources</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="completedCount">5</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="inProgressCount">8</div>
+                            <div class="stat-label">In Progress</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="savedCount">12</div>
+                            <div class="stat-label">Saved Items</div>
+                        </div>
+                    </div>
+
+                    <div class="search-filter">
+                        <div class="search-box">
+                            <input type="text" class="search-input" placeholder="Search resources..." id="resourceSearch">
+                            <button class="btn">Search</button>
+                        </div>
+                        <div class="filter-options">
+                            <div class="filter-btn active" data-filter="all">All</div>
+                            <div class="filter-btn" data-filter="resume">Resume</div>
+                            <div class="filter-btn" data-filter="interview">Interview</div>
+                            <div class="filter-btn" data-filter="skills">Skills</div>
+                            <div class="filter-btn" data-filter="books">Books</div>
+                            <div class="filter-btn" data-filter="premium">Premium</div>
+                        </div>
+                    </div>
+
+                    <h3>Recently Accessed</h3>
+                    <div class="resources-grid" id="recentResources">
+                        <!-- Recent resources will be loaded here -->
+                    </div>
+
+                    <h3>Recommended Next Steps</h3>
+                    <div class="learning-path">
+                        <div class="path-item">
+                            <div class="path-status completed">✓</div>
+                            <div>
+                                <strong>Complete Skills Assessment</strong>
+                                <p>Identify your current skill levels</p>
+                            </div>
+                        </div>
+                        <div class="path-item">
+                            <div class="path-status current">●</div>
+                            <div>
+                                <strong>Update Resume</strong>
+                                <p>Incorporate assessment results</p>
+                            </div>
+                            <button class="btn btn-sm">Continue</button>
+                        </div>
+                        <div class="path-item">
+                            <div class="path-status">○</div>
+                            <div>
+                                <strong>Practice Interview Questions</strong>
+                                <p>Based on your target roles</p>
+                            </div>
+                        </div>
+                        <div class="path-item">
+                            <div class="path-status">○</div>
+                            <div>
+                                <strong>Read Recommended Books</strong>
+                                <p>Fill skill gaps identified</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Resources Section -->
+                <div id="my-resources" class="content-section">
+                    <h2>📚 My Resources Collection</h2>
+                    <p>All your career development resources in one place</p>
+                    
+                    <div class="resources-grid" id="allResources">
+                        <!-- Resource cards will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Saved Items Section -->
+                <div id="saved-items" class="content-section">
+                    <h2>⭐ Saved Resources</h2>
+                    <p>Your bookmarked resources for quick access</p>
+                    
+                    <div class="saved-items-grid" id="savedResources">
+                        <!-- Saved items will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Progress Tracking Section -->
+                <div id="progress" class="content-section">
+                    <h2>📈 Progress Tracking</h2>
+                    <p>Monitor your completion and learning progress</p>
+                    
+                    <div class="progress-section">
+                        <h3>Resource Completion</h3>
+                        <div class="progress-item">
+                            <span>Resume Builder</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Interview Preparation</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 45%"></div>
+                            </div>
+                            <span>45%</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Skills Assessment</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                            <span>100%</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Career Path Exploration</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 30%"></div>
+                            </div>
+                            <span>30%</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-section">
+                        <h3>Skill Development</h3>
+                        <div class="progress-item">
+                            <span>Technical Skills</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                            <span>65%</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Soft Skills</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%"></div>
+                            </div>
+                            <span>40%</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Industry Knowledge</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 55%"></div>
+                            </div>
+                            <span>55%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resume Builder Integration -->
+                <div id="resume-builder" class="content-section">
+                    <h2>📝 Resume Builder Resources</h2>
+                    <p>Templates, guides, and tools for creating professional resumes</p>
+                    
+                    <div class="resources-grid">
+                        <div class="resource-card">
+                            <div class="resource-icon">📄</div>
+                            <div class="resource-title">Professional Resume Templates</div>
+                            <div class="resource-description">10+ ATS-friendly resume templates for different industries and experience levels</div>
+                            <div class="resource-meta">
+                                <span class="resource-type">Templates</span>
+                                <span>5 completed</span>
+                            </div>
+                            <div class="resource-actions">
+                                <button class="btn btn-sm">Use Template</button>
+                                <button class="btn btn-outline btn-sm" onclick="saveResource('resume-templates')">Save</button>
+                            </div>
+                        </div>
+
+                        <div class="resource-card">
+                            <div class="resource-icon">✍️</div>
+                            <div class="resource-title">Resume Writing Guide</div>
+                            <div class="resource-description">Step-by-step guide to writing compelling resume content that gets noticed</div>
+                            <div class="resource-meta">
+                                <span class="resource-type">Guide</span>
+                                <span>In progress</span>
+                            </div>
+                            <div class="resource-actions">
+                                <button class="btn btn-sm">Continue</button>
+                                <button class="btn btn-outline btn-sm" onclick="saveResource('resume-guide')">Save</button>
+                            </div>
+                        </div>
+
+                        <div class="resource-card premium">
+                            <div class="resource-icon">🤖</div>
+                            <div class="resource-title">AI Resume Optimization</div>
+                            <div class="resource-description">AI-powered analysis and optimization of your resume for specific job roles</div>
+                            <div class="resource-meta">
+                                <span class="resource-type">AI Tool</span>
+                                <span>Premium</span>
+                            </div>
+                            <div class="resource-actions">
+                                <button class="btn btn-premium btn-sm" onclick="showPaymentSection()">Unlock</button>
+                                <button class="btn btn-outline btn-sm" onclick="saveResource('ai-resume')">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interview Prep Integration -->
+                <div id="interview-prep" class="content-section">
+                    <h2>🎤 Interview Preparation Resources</h2>
+                    <p>Practice questions, mock interviews, and preparation guides</p>
+                    
+                    <div class="resources-grid">
+                        <div class="resource-card">
+                            <div class="resource-icon">❓</div>
+                            <div class="resource-title">Common Interview Questions</div>
+                            <div class="resource-description">200+ frequently asked interview questions with sample answers</div>
+                            <div class="resource-meta">
+                                <span class="resource-type">Questions</span>
+                                <span>35 practiced</span>
+                            </div>
+                            <div class="resource-actions">
+                                <button class="btn btn-sm">Practice Now</button>
+                                <button class="btn btn-outline btn-sm" onclick="saveResource('interview-questions')">Save</button>
+                            </div>
+                        </div>
+
+                        <div class="resource-card premium">
+                            <div class="resource-icon">🎭</div>
+                            <div class="resource-title">Mock Interview Sessions</div>
+                            <div class="resource-description">Simulated interviews with AI feedback and performance analysis</div>
+                            <div class="resource-meta">
+                                <span class="resource-type">Practice</span>
+                                <span>Premium</span>
+                            </div>
+                            <div class="resource-actions">
+                                <button class="btn btn-premium btn-sm" onclick="showPaymentSection()">Unlock</button>
+                                <button class="btn btn-outline btn-sm" onclick="saveResource('mock-interviews')">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Section -->
+                <div id="payment" class="content-section">
+                    <h2>🔓 Unlock Premium Resources</h2>
+                    <p>Get access to exclusive career development tools and resources</p>
+                    
+                    <div class="premium-features">
+                        <div class="feature-card">
+                            <h3>🤖 AI Tools</h3>
+                            <p>AI resume optimization and interview analysis</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>🎓 Premium Courses</h3>
+                            <p>Exclusive online courses and certifications</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>📚 Advanced Resources</h3>
+                            <p>Industry-specific guides and templates</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>📊 Analytics</h3>
+                            <p>Detailed progress tracking and insights</p>
+                        </div>
+                    </div>
+
+                    <div class="payment-options">
+                        <button class="btn btn-premium btn-block" style="padding: 1.5rem; font-size: 1.2rem; margin: 1rem 0;">
+                            Unlock All Premium Resources - ₹299/month
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Resources Management Data
+        const resourcesData = {
+            userProgress: {
+                totalResources: 24,
+                completed: 5,
+                inProgress: 8,
+                saved: 12,
+                premium: false
+            },
+            savedResources: [],
+            recentResources: [],
+            allResources: [
+                {
+                    id: 'resume-templates',
+                    title: 'Professional Resume Templates',
+                    description: '10+ ATS-friendly resume templates for different industries',
+                    type: 'Templates',
+                    category: 'resume',
+                    icon: '📄',
+                    progress: 80,
+                    premium: false
+                },
+                {
+                    id: 'resume-guide',
+                    title: 'Resume Writing Guide',
+                    description: 'Step-by-step guide to writing compelling resume content',
+                    type: 'Guide',
+                    category: 'resume',
+                    icon: '✍️',
+                    progress: 45,
+                    premium: false
+                },
+                {
+                    id: 'ai-resume',
+                    title: 'AI Resume Optimization',
+                    description: 'AI-powered analysis and optimization of your resume',
+                    type: 'AI Tool',
+                    category: 'resume',
+                    icon: '🤖',
+                    progress: 0,
+                    premium: true
+                },
+                {
+                    id: 'interview-questions',
+                    title: 'Common Interview Questions',
+                    description: '200+ frequently asked interview questions with sample answers',
+                    type: 'Questions',
+                    category: 'interview',
+                    icon: '❓',
+                    progress: 35,
+                    premium: false
+                },
+                {
+                    id: 'mock-interviews',
+                    title: 'Mock Interview Sessions',
+                    description: 'Simulated interviews with AI feedback and performance analysis',
+                    type: 'Practice',
+                    category: 'interview',
+                    icon: '🎭',
+                    progress: 0,
+                    premium: true
+                },
+                {
+                    id: 'skills-assessment',
+                    title: 'Technical Skills Assessment',
+                    description: 'Comprehensive assessment of 45+ technical skills',
+                    type: 'Assessment',
+                    category: 'skills',
+                    icon: '🎯',
+                    progress: 100,
+                    premium: false
+                },
+                {
+                    id: 'clean-code',
+                    title: 'Clean Code Book',
+                    description: 'Handbook of Agile Software Craftsmanship by Robert C. Martin',
+                    type: 'Book',
+                    category: 'books',
+                    icon: '📖',
+                    progress: 0,
+                    premium: false
+                },
+                {
+                    id: 'design-patterns',
+                    title: 'Design Patterns Book',
+                    description: 'Elements of Reusable Object-Oriented Software by Gang of Four',
+                    type: 'Book',
+                    category: 'books',
+                    icon: '📖',
+                    progress: 0,
+                    premium: true
+                }
+            ]
+        };
+
+        // Initialize the resources management
+        function initializeResourcesManagement() {
+            setupEventListeners();
+            loadUserData();
+            updateDashboard();
+            renderRecentResources();
+            renderAllResources();
+            renderSavedResources();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all nav items
+                    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    const section = this.dataset.section;
+                    showSection(section);
+                });
+            });
+
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterResources(this.dataset.filter);
+                });
+            });
+
+            // Search functionality
+            document.getElementById('resourceSearch').addEventListener('input', function(e) {
+                searchResources(e.target.value);
+            });
+        }
+
+        // Show specific section
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+
+            // Handle premium sections
+            if (sectionName.includes('premium') && !resourcesData.userProgress.premium) {
+                showPaymentSection();
+            }
+        }
+
+        // Update dashboard statistics
+        function updateDashboard() {
+            document.getElementById('totalResources').textContent = resourcesData.userProgress.totalResources;
+            document.getElementById('completedCount').textContent = resourcesData.userProgress.completed;
+            document.getElementById('inProgressCount').textContent = resourcesData.userProgress.inProgress;
+            document.getElementById('savedCount').textContent = resourcesData.userProgress.saved;
+            
+            const progressPercent = (resourcesData.userProgress.completed / resourcesData.userProgress.totalResources) * 100;
+            document.getElementById('overallProgressPercent').textContent = `${Math.round(progressPercent)}%`;
+            document.getElementById('overallProgressFill').style.width = `${progressPercent}%`;
+            document.getElementById('completedResources').textContent = resourcesData.userProgress.completed;
+        }
+
+        // Render recent resources
+        function renderRecentResources() {
+            const container = document.getElementById('recentResources');
+            const recent = resourcesData.allResources.slice(0, 4); // Get first 4 as recent
+            
+            container.innerHTML = recent.map(resource => `
+                <div class="resource-card ${resource.premium ? 'premium' : ''}">
+                    <div class="resource-icon">${resource.icon}</div>
+                    <div class="resource-title">${resource.title}</div>
+                    <div class="resource-description">${resource.description}</div>
+                    <div class="resource-meta">
+                        <span class="resource-type">${resource.type}</span>
+                        <span>${resource.progress}% complete</span>
+                    </div>
+                    <div class="resource-actions">
+                        <button class="btn btn-sm" onclick="openResource('${resource.id}')">
+                            ${resource.progress > 0 ? 'Continue' : 'Start'}
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="saveResource('${resource.id}')">
+                            ${resourcesData.savedResources.includes(resource.id) ? 'Saved' : 'Save'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render all resources
+        function renderAllResources() {
+            const container = document.getElementById('allResources');
+            
+            container.innerHTML = resourcesData.allResources.map(resource => `
+                <div class="resource-card ${resource.premium ? 'premium' : ''}">
+                    <div class="resource-icon">${resource.icon}</div>
+                    <div class="resource-title">${resource.title}</div>
+                    <div class="resource-description">${resource.description}</div>
+                    <div class="resource-meta">
+                        <span class="resource-type">${resource.type}</span>
+                        <span>${resource.progress}% complete</span>
+                    </div>
+                    <div class="resource-actions">
+                        <button class="btn btn-sm" onclick="openResource('${resource.id}')">
+                            ${resource.progress > 0 ? 'Continue' : 'Start'}
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="saveResource('${resource.id}')">
+                            ${resourcesData.savedResources.includes(resource.id) ? 'Saved' : 'Save'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render saved resources
+        function renderSavedResources() {
+            const container = document.getElementById('savedResources');
+            const saved = resourcesData.allResources.filter(resource => 
+                resourcesData.savedResources.includes(resource.id)
+            );
+            
+            container.innerHTML = saved.map(resource => `
+                <div class="saved-item ${resource.premium ? 'premium' : ''}">
+                    <div class="saved-item-header">
+                        <div class="resource-icon">${resource.icon}</div>
+                        <div class="saved-date">Saved today</div>
+                    </div>
+                    <div class="resource-title">${resource.title}</div>
+                    <div class="resource-description">${resource.description}</div>
+                    <div class="resource-meta">
+                        <span class="resource-type">${resource.type}</span>
+                        <span>${resource.progress}% complete</span>
+                    </div>
+                    <div class="resource-actions">
+                        <button class="btn btn-sm" onclick="openResource('${resource.id}')">Open</button>
+                        <button class="btn btn-danger btn-sm" onclick="unsaveResource('${resource.id}')">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Save resource to saved items
+        function saveResource(resourceId) {
+            if (!resourcesData.savedResources.includes(resourceId)) {
+                resourcesData.savedResources.push(resourceId);
+                resourcesData.userProgress.saved = resourcesData.savedResources.length;
+                updateDashboard();
+                renderSavedResources();
+                
+                // Update button state
+                const buttons = document.querySelectorAll(`[onclick="saveResource('${resourceId}')"]`);
+                buttons.forEach(btn => {
+                    btn.textContent = 'Saved';
+                    btn.disabled = true;
+                });
+                
+                alert('Resource saved to your collection!');
+            }
+        }
+
+        // Remove resource from saved items
+        function unsaveResource(resourceId) {
+            resourcesData.savedResources = resourcesData.savedResources.filter(id => id !== resourceId);
+            resourcesData.userProgress.saved = resourcesData.savedResources.length;
+            updateDashboard();
+            renderSavedResources();
+            
+            // Update button state in other sections
+            const buttons = document.querySelectorAll(`[onclick="saveResource('${resourceId}')"]`);
+            buttons.forEach(btn => {
+                btn.textContent = 'Save';
+                btn.disabled = false;
+            });
+        }
+
+        // Open resource
+        function openResource(resourceId) {
+            const resource = resourcesData.allResources.find(r => r.id === resourceId);
+            if (resource.premium && !resourcesData.userProgress.premium) {
+                showPaymentSection();
+                return;
+            }
+            
+            // Navigate to the appropriate section based on resource category
+            switch(resource.category) {
+                case 'resume':
+                    showSection('resume-builder');
+                    break;
+                case 'interview':
+                    showSection('interview-prep');
+                    break;
+                case 'skills':
+                    showSection('skills-assessment');
+                    break;
+                case 'books':
+                    showSection('books');
+                    break;
+                default:
+                    alert(`Opening: ${resource.title}`);
+            }
+        }
+
+        // Filter resources
+        function filterResources(filter) {
+            // This would filter the resources grid in a real implementation
+            console.log(`Filtering by: ${filter}`);
+        }
+
+        // Search resources
+        function searchResources(query) {
+            // This would search through resources in a real implementation
+            console.log(`Searching for: ${query}`);
+        }
+
+        // Show payment section
+        function showPaymentSection() {
+            showSection('payment');
+        }
+
+        // Load user data from localStorage
+        function loadUserData() {
+            const saved = localStorage.getItem('resourcesData');
+            if (saved) {
+                const data = JSON.parse(saved);
+                resourcesData.userProgress = { ...resourcesData.userProgress, ...data.userProgress };
+                resourcesData.savedResources = data.savedResources || [];
+            }
+        }
+
+        // Save user data to localStorage
+        function saveUserData() {
+            localStorage.setItem('resourcesData', JSON.stringify({
+                userProgress: resourcesData.userProgress,
+                savedResources: resourcesData.savedResources
+            }));
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeResourcesManagement);
+    </script>
+</body>
+</html>

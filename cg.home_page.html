@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Guide - Unlock Your Potential</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #ddd;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo a {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background-color: var(--light-color);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+            background-color: var(--light-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        /* Career Quiz Section */
+        .quiz-section {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 3rem;
+        }
+
+        .quiz-progress {
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: var(--light-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+        }
+
+        .quiz-question h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-card {
+            padding: 1.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary-color);
+            background-color: var(--light-color);
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Results Section */
+        .results-section {
+            padding: 4rem 0;
+            background: var(--light-color);
+        }
+
+        .career-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .career-match {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--success-color);
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            text-align: center;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .card-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            color: #999;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0;
+                text-align: center;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-container {
+                padding: 2rem 1.5rem;
+                margin: 0 1rem;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo"><a href="index.html">CareerGuide</a></div>
+                <button class="mobile-menu-btn">☰</button>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="ass.html">Assessments</a></li>
+                    <li><a href="career_patth.html">Career Paths</a></li>
+                    <li><a href="RES.html">Resources</a></li>
+                    <li><a href="login.html" id="auth-link">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Discover Your Perfect Career Path</h1>
+                <p>AI-powered career guidance, personalized recommendations, and expert insights to shape your future.</p>
+                <div class="hero-actions">
+                    <a href="#quiz" class="btn">Start Career Quiz →</a>
+                    <a href="#career-paths" class="btn btn-outline">Explore Career Paths</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Quiz Section -->
+    <section id="quiz" class="quiz-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Find Your Ideal Career</h2>
+                <p>Take our 5-minute quiz to discover careers that match your personality, skills, and interests.</p>
+            </div>
+            <div class="quiz-container">
+                <div class="quiz-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+                <div id="quizContent">
+                    <!-- Quiz content will be loaded here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Paths Section -->
+    <section id="career-paths" class="section" style="background-color: var(--light-color);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Explore Career Paths</h2>
+                <p>Discover diverse career opportunities across different industries and fields.</p>
+            </div>
+            <div class="card-grid">
+                <div class="card slide-in">
+                    <div class="card-icon">💻</div>
+                    <div class="card-content">
+                        <h3>Technology & IT</h3>
+                        <p>Software development, cybersecurity, data science, AI/ML, and IT management roles with high growth potential.</p>
+                        <a href="#" class="btn" onclick="showCareerDetails('technology')">Explore Careers</a>
+                    </div>
+                </div>
+                <div class="card slide-in">
+                    <div class="card-icon">⚕️</div>
+                    <div class="card-content">
+                        <h3>Healthcare</h3>
+                        <p>Medicine, nursing, pharmacy, medical research, and healthcare administration careers.</p>
+                        <a href="#" class="btn" onclick="showCareerDetails('healthcare')">Explore Careers</a>
+                    </div>
+                </div>
+                <div class="card slide-in">
+                    <div class="card-icon">💼</div>
+                    <div class="card-content">
+                        <h3>Business & Finance</h3>
+                        <p>Management, marketing, finance, accounting, entrepreneurship, and business consulting.</p>
+                        <a href="#" class="btn" onclick="showCareerDetails('business')">Explore Careers</a>
+                    </div>
+                </div>
+                <div class="card slide-in">
+                    <div class="card-icon">🎨</div>
+                    <div class="card-content">
+                        <h3>Creative Arts</h3>
+                        <p>Design, writing, filmmaking, music, photography, and digital media careers.</p>
+                        <a href="#" class="btn" onclick="showCareerDetails('creative')">Explore Careers</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Career Resources</h2>
+                <p>Tools and resources to support your career development journey.</p>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">📝</div>
+                    <div class="card-content">
+                        <h3>Resume Builder</h3>
+                        <p>Create professional resumes tailored to your target industry and experience level.</p>
+                        <a href="resume_builder.html" class="btn">Get Started</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-content">
+                        <h3>Interview Preparation</h3>
+                        <p>Practice common interview questions and improve your communication skills.</p>
+                        <a href="IP_page.html" class="btn">Prepare Now</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📚</div>
+                    <div class="card-content">
+                        <h3>Skill Development</h3>
+                        <p>Access courses and learning resources to enhance your professional skills.</p>
+                        <a href="sk_page.html" class="btn">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">CareerGuide</div>
+                    <p>Your trusted partner in career discovery and development.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="ass.html">Assessments</a></li>
+                        <li><a href="#career-paths">Career Paths</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 CareerGuide. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Career Quiz Data
+        const quizQuestions = [
+            {
+                question: "Which activities interest you the most?",
+                options: [
+                    "Solving complex problems and coding",
+                    "Helping and caring for people",
+                    "Creating art, design, or content",
+                    "Analyzing data and making business decisions",
+                    "Teaching and mentoring others"
+                ]
+            },
+            {
+                question: "What are your strongest skills?",
+                options: [
+                    "Analytical thinking and logic",
+                    "Communication and empathy",
+                    "Creativity and innovation",
+                    "Leadership and management",
+                    "Research and analysis"
+                ]
+            },
+            {
+                question: "What work environment do you prefer?",
+                options: [
+                    "Tech office with flexible hours",
+                    "Hospital, clinic, or healthcare facility",
+                    "Creative studio or remote work",
+                    "Corporate office or business setting",
+                    "Educational institution or research center"
+                ]
+            },
+            {
+                question: "What is your educational background?",
+                options: [
+                    "Computer Science/Engineering",
+                    "Medical/Life Sciences",
+                    "Arts/Design/Humanities",
+                    "Business/Commerce",
+                    "Education/Social Sciences"
+                ]
+            },
+            {
+                question: "What are your career goals?",
+                options: [
+                    "High salary and rapid growth",
+                    "Making a difference in people's lives",
+                    "Creative freedom and expression",
+                    "Business leadership and impact",
+                    "Knowledge sharing and development"
+                ]
+            }
+        ];
+
+        // Career Recommendations
+        const careerRecommendations = {
+            technology: [
+                { name: "Software Developer", match: 95, description: "Design and develop software applications", salary: "$80k - $150k" },
+                { name: "Data Scientist", match: 88, description: "Analyze complex data to drive decisions", salary: "$90k - $160k" },
+                { name: "Cybersecurity Analyst", match: 82, description: "Protect systems from cyber threats", salary: "$85k - $140k" }
+            ],
+            healthcare: [
+                { name: "Medical Doctor", match: 92, description: "Diagnose and treat medical conditions", salary: "$150k - $300k" },
+                { name: "Registered Nurse", match: 85, description: "Provide patient care and support", salary: "$60k - $110k" },
+                { name: "Pharmacist", match: 78, description: "Dispense medications and advise patients", salary: "$100k - $130k" }
+            ],
+            business: [
+                { name: "Business Analyst", match: 90, description: "Analyze business processes and requirements", salary: "$65k - $120k" },
+                { name: "Marketing Manager", match: 84, description: "Develop and implement marketing strategies", salary: "$70k - $130k" },
+                { name: "Financial Analyst", match: 79, description: "Analyze financial data and trends", salary: "$60k - $110k" }
+            ],
+            creative: [
+                { name: "Graphic Designer", match: 88, description: "Create visual content and designs", salary: "$45k - $85k" },
+                { name: "Content Writer", match: 82, description: "Create written content for various media", salary: "$40k - $80k" },
+                { name: "UX/UI Designer", match: 86, description: "Design user-friendly digital interfaces", salary: "$70k - $120k" }
+            ]
+        };
+
+        let currentQuestion = 0;
+        let userAnswers = [];
+
+        // Initialize the quiz
+        function initializeQuiz() {
+            showQuestion(0);
+        }
+
+        // Show question
+        function showQuestion(questionIndex) {
+            const quizContent = document.getElementById('quizContent');
+            const question = quizQuestions[questionIndex];
+            
+            // Update progress bar
+            const progress = ((questionIndex + 1) / quizQuestions.length) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            
+            let optionsHtml = '';
+            question.options.forEach((option, index) => {
+                optionsHtml += `
+                    <div class="option-card" onclick="selectOption(${index})">
+                        ${option}
+                    </div>
+                `;
+            });
+            
+            quizContent.innerHTML = `
+                <div class="quiz-question">
+                    <h3>${question.question}</h3>
+                    <div class="options-grid">
+                        ${optionsHtml}
+                    </div>
+                </div>
+                <div class="quiz-navigation">
+                    ${questionIndex > 0 ? '<button class="btn btn-outline" onclick="previousQuestion()">Previous</button>' : '<div></div>'}
+                    <button class="btn" onclick="nextQuestion()" id="nextBtn" disabled>
+                        ${questionIndex === quizQuestions.length - 1 ? 'See Results' : 'Next'}
+                    </button>
+                </div>
+            `;
+            
+            // Re-select previous answer if exists
+            if (userAnswers[questionIndex] !== undefined) {
+                selectOption(userAnswers[questionIndex]);
+            }
+        }
+
+        // Select option
+        function selectOption(optionIndex) {
+            const options = document.querySelectorAll('.option-card');
+            options.forEach(option => option.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+            
+            userAnswers[currentQuestion] = optionIndex;
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        // Navigation functions
+        function nextQuestion() {
+            if (currentQuestion < quizQuestions.length - 1) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        }
+
+        // Show results
+        function showResults() {
+            const quizContent = document.getElementById('quizContent');
+            const careerField = determineCareerField();
+            const recommendations = careerRecommendations[careerField] || careerRecommendations.technology;
+            
+            let resultsHtml = `
+                <div class="section-title">
+                    <h2>Your Career Matches</h2>
+                    <p>Based on your answers, here are careers that might be a great fit for you:</p>
+                </div>
+            `;
+            
+            recommendations.forEach(career => {
+                resultsHtml += `
+                    <div class="career-card">
+                        <span class="career-match">${career.match}% Match</span>
+                        <h3>${career.name}</h3>
+                        <p>${career.description}</p>
+                        <p><strong>Average Salary:</strong> ${career.salary}</p>
+                        <button class="btn" onclick="showCareerDetails('${careerField}')">Learn More</button>
+                    </div>
+                `;
+            });
+            
+            quizContent.innerHTML = resultsHtml;
+        }
+
+        // Determine career field based on answers
+        function determineCareerField() {
+            const answerPattern = userAnswers.join('');
+            
+            if (answerPattern.includes('0') || answerPattern.includes('1')) {
+                return 'technology';
+            } else if (answerPattern.includes('2') || answerPattern.includes('3')) {
+                return 'healthcare';
+            } else if (answerPattern.includes('4') || answerPattern.includes('5')) {
+                return 'business';
+            } else {
+                return 'creative';
+            }
+        }
+
+        // Show career details (placeholder)
+        function showCareerDetails(field) {
+            alert(`Showing details for ${field} careers. In a full implementation, this would navigate to a detailed career page.`);
+        }
+
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Initialize quiz
+            initializeQuiz();
+        });
+    </script>
+</body>
+</html>
